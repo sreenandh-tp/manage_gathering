@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+
+class AcceptOrRejectButton extends StatelessWidget {
+  const AcceptOrRejectButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        SizedBox(
+          height: 34,
+          width: 34,
+          child: IconButton.outlined(
+            padding: const EdgeInsets.all(0),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text("Reject?"),
+                    content: const Text(
+                        "Are you sure you want to reject this joining request?"),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Cancel")),
+                      TextButton(onPressed: () {}, child: const Text("Reject"))
+                    ],
+                  );
+                },
+              );
+            },
+            icon: const Icon(
+              Icons.close,
+              size: 18,
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        SizedBox(
+          height: 34,
+          width: 34,
+          child: IconButton.filled(
+              padding: const EdgeInsets.all(0),
+              onPressed: () {},
+              icon: const Icon(
+                Icons.check,
+                size: 18,
+                color: Colors.white,
+              )),
+        )
+      ],
+    );
+  }
+}
