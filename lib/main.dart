@@ -14,8 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       themeMode: ThemeMode.system,
+
       //LIGHT THEME
       theme: ThemeData(
+        useMaterial3: true,
         primaryColor: const Color.fromARGB(255, 243, 238, 251),
         dialogTheme: const DialogTheme(backgroundColor: Colors.white),
         bottomSheetTheme:
@@ -58,6 +60,7 @@ class MyApp extends StatelessWidget {
       ),
       // DARK THEME
       darkTheme: ThemeData(
+        useMaterial3: true,
         primaryColor: Colors.black,
         dialogTheme: const DialogTheme(backgroundColor: Colors.black87),
         bottomSheetTheme:

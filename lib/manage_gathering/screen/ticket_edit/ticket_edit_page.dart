@@ -166,8 +166,6 @@ class TicketEditPage extends StatelessWidget {
                             decoration: InputDecoration(
                               hintText: "DD/MM/YYYY",
                               labelText: "Start on",
-                              labelStyle:
-                                  Theme.of(context).textTheme.labelLarge,
                               suffix: IconButton(
                                 onPressed: () {},
                                 icon: const Icon(Icons.calendar_today_outlined),
@@ -182,8 +180,6 @@ class TicketEditPage extends StatelessWidget {
                             decoration: InputDecoration(
                               hintText: "DD/MM/YYYY",
                               labelText: "End on (Optional)",
-                              labelStyle:
-                                  Theme.of(context).textTheme.labelLarge,
                               suffix: IconButton(
                                 onPressed: () {},
                                 icon: const Icon(Icons.calendar_today_outlined),

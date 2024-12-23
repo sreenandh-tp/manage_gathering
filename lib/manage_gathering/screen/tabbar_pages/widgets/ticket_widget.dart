@@ -25,17 +25,21 @@ class TickectWidget extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            contentPadding: const EdgeInsets.only(left: 15, right: 5),
+            minTileHeight: 30,
+            dense: true,
+            contentPadding: const EdgeInsets.only(
+              left: 15,
+              right: 5,
+            ),
             leading: Text(
               ticketType,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             title: Text(
               status,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall
-                  ?.merge(const TextStyle(color: Colors.red)),
+              style: Theme.of(context).textTheme.titleSmall?.merge(
+                    const TextStyle(color: Colors.red),
+                  ),
             ),
             trailing: IconButton(
                 alignment: Alignment.topRight,
@@ -62,8 +66,13 @@ class TickectWidget extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   strickedPrice!,
-                  style: Theme.of(context).textTheme.labelLarge?.merge(
-                      const TextStyle(decoration: TextDecoration.lineThrough)),
+                  style:
+                      Theme.of(context).textTheme.labelLarge?.merge(TextStyle(
+                            decorationColor:
+                                Theme.of(context).textTheme.labelSmall?.color,
+                            decoration: TextDecoration.lineThrough,
+                            decorationThickness: 4,
+                          )),
                 ),
               ],
             ),
@@ -85,7 +94,7 @@ class TickectWidget extends StatelessWidget {
           rowWidget ??
               const SizedBox(
                 height: 15,
-              )
+              ),
         ],
       ),
     );

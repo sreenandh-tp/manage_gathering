@@ -7,7 +7,7 @@ class GuestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 12),
@@ -40,7 +40,7 @@ class GuestsPage extends StatelessWidget {
           const SizedBox(height: 10),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: 6,
+            itemCount: 12,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return GestureDetector(
