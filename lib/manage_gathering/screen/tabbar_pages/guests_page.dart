@@ -7,28 +7,32 @@ class GuestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 10, top: 12),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 12),
             child: Row(
               children: [
                 Chip(
                   elevation: 0,
-                  side: BorderSide(style: BorderStyle.none),
-                  backgroundColor: Color.fromARGB(255, 233, 222, 255),
-                  label: Text("All"),
+                  label: Text(
+                    "All",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 ),
-                SizedBox(width: 6),
+                const SizedBox(width: 6),
                 Chip(
-                  backgroundColor: Colors.white,
-                  label: Text("Verified"),
+                  label: Text(
+                    "Verified",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 ),
-                SizedBox(width: 6),
+                const SizedBox(width: 6),
                 Chip(
-                  backgroundColor: Colors.white,
-                  label: Text("Rejected"),
+                  label: Text(
+                    "Rejected",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 ),
               ],
             ),
@@ -60,8 +64,10 @@ class GuestsPage extends StatelessWidget {
                       Text("10 min ago",
                           style: Theme.of(context).textTheme.labelSmall),
                       const SizedBox(width: 8),
-                      const Icon(Icons.confirmation_num_outlined,
-                          size: 15, color: Colors.black45),
+                      const Icon(
+                        Icons.confirmation_num_outlined,
+                        size: 15,
+                      ),
                       const SizedBox(width: 4),
                       Text("1 pass",
                           style: Theme.of(context).textTheme.labelSmall)

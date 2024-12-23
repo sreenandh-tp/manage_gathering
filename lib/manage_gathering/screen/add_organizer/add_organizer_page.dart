@@ -8,8 +8,9 @@ class AddOrganizerPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const CloseButton(),
-        title: const Text(
+        title: Text(
           "Add Organizer",
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: Padding(
@@ -51,7 +52,6 @@ class AddOrganizerPage extends StatelessWidget {
       ),
       bottomSheet: BottomAppBar(
         height: 65,
-        color: const Color.fromARGB(255, 255, 248, 248),
         child: SizedBox(
           width: double.infinity,
           child: FilledButton(

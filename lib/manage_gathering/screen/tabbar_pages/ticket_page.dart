@@ -14,7 +14,6 @@ class TicketPage extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: ListView(

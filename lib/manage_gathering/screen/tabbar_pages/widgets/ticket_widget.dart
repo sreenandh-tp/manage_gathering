@@ -24,6 +24,7 @@ class TickectWidget extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card.outlined(
+        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
@@ -83,7 +84,8 @@ class TickectWidget extends StatelessWidget {
                     strickedPrice!,
                     style: Theme.of(context).textTheme.labelLarge?.merge(
                         const TextStyle(
-                            decoration: TextDecoration.lineThrough)),
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.white54)),
                   ),
                 ],
               ),

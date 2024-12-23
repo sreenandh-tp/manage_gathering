@@ -20,8 +20,9 @@ class TicketEditPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: const CloseButton(),
-        title: const Text(
+        title: Text(
           "Edit pass",
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: Form(
@@ -57,7 +58,10 @@ class TicketEditPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: DropdownButtonFormField(
-                        hint: const Text("GST %"),
+                        hint: Text(
+                          "GST %",
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                         validator: (value) {
                           if (value != null) {
                             return null;
@@ -69,7 +73,10 @@ class TicketEditPage extends StatelessWidget {
                           (e) {
                             return DropdownMenuItem(
                               value: e,
-                              child: Text(e),
+                              child: Text(
+                                e,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
                             );
                           },
                         ).toList(),
@@ -191,7 +198,6 @@ class TicketEditPage extends StatelessWidget {
         ),
       ),
       bottomSheet: BottomAppBar(
-        color: const Color.fromARGB(255, 255, 250, 250),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: SizedBox(

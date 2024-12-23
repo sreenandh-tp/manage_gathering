@@ -80,9 +80,8 @@ class ManageGatheringPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
-            color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.only(top: 15, left: 18, right: 10),
               child: Column(
@@ -154,9 +153,8 @@ class ManageGatheringPage extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Expanded(
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
-              color: Colors.white,
               child: DefaultTabController(
                 length: 3,
                 child: Column(
@@ -164,11 +162,10 @@ class ManageGatheringPage extends StatelessWidget {
                     TabBar(
                         tabAlignment: TabAlignment.fill,
                         // isScrollable: true,
-                        indicatorColor: Colors.indigo,
+                        indicatorColor: Colors.deepPurple,
                         indicatorSize: TabBarIndicatorSize.tab,
                         indicatorWeight: 3,
-                        dividerColor: Colors.black12,
-                        labelColor: Colors.indigo,
+                        labelColor: Colors.deepPurple,
                         unselectedLabelStyle:
                             Theme.of(context).textTheme.labelLarge,
                         labelStyle: Theme.of(context)

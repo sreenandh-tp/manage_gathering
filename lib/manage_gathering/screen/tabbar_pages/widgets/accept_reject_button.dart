@@ -22,9 +22,14 @@ class AcceptOrRejectButton extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: const Text("Reject?"),
-                    content: const Text(
-                        "Are you sure you want to reject this joining request?"),
+                    title: Text(
+                      "Reject?",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    content: Text(
+                      "Are you sure you want to reject this joining request?",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
                     actions: [
                       TextButton(
                           onPressed: () {
