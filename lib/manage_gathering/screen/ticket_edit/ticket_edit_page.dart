@@ -58,6 +58,7 @@ class TicketEditPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: DropdownButtonFormField(
+                        style: const TextStyle(color: Colors.black),
                         hint: Text(
                           "GST %",
                           style: Theme.of(context).textTheme.labelMedium,

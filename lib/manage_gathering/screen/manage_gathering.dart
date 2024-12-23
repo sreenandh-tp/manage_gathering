@@ -23,6 +23,7 @@ class ManageGatheringPage extends StatelessWidget {
             icon: const Icon(Icons.settings),
           ),
           PopupMenuButton(
+            color: Theme.of(context).primaryColor,
             itemBuilder: (context) => [
               PopupMenuItem(
                 onTap: () {
@@ -32,7 +33,10 @@ class ManageGatheringPage extends StatelessWidget {
                         builder: (context) => const EditPage(),
                       ));
                 },
-                child: const Text("Edit"),
+                child: Text(
+                  "Edit",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
               PopupMenuItem(
                 onTap: () {
@@ -42,7 +46,10 @@ class ManageGatheringPage extends StatelessWidget {
                         builder: (context) => const ViewOrderPage(),
                       ));
                 },
-                child: const Text("View order"),
+                child: Text(
+                  "View order",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
               PopupMenuItem(
                 onTap: () {
@@ -52,7 +59,10 @@ class ManageGatheringPage extends StatelessWidget {
                         builder: (context) => const SendNotificationPage(),
                       ));
                 },
-                child: const Text("Send a Notification"),
+                child: Text(
+                  "Send a Notification",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
               PopupMenuItem(
                 onTap: () {
@@ -62,7 +72,10 @@ class ManageGatheringPage extends StatelessWidget {
                         builder: (context) => const InviteGuestPage(),
                       ));
                 },
-                child: const Text("Invite guest"),
+                child: Text(
+                  "Invite guest",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
               PopupMenuItem(
                 onTap: () {
@@ -72,7 +85,10 @@ class ManageGatheringPage extends StatelessWidget {
                         builder: (context) => const ExportGuestPage(),
                       ));
                 },
-                child: const Text("Export guests"),
+                child: Text(
+                  "Export guests",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
             ],
           )

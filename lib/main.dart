@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       //LIGHT THEME
       theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 243, 238, 251),
         dialogTheme: const DialogTheme(backgroundColor: Colors.white70),
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.white),
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
       ),
       // DARK THEME
       darkTheme: ThemeData(
+        primaryColor: Colors.black,
         dialogTheme: const DialogTheme(backgroundColor: Colors.black87),
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.black87),
@@ -82,7 +84,7 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Colors.white),
         textTheme: const TextTheme(
-          titleLarge: TextStyle(color: Colors.white),
+          titleLarge: TextStyle(color: Colors.white, fontSize: 18),
           titleMedium: TextStyle(color: Colors.white),
           titleSmall: TextStyle(color: Colors.white),
           labelLarge: TextStyle(color: Colors.white),

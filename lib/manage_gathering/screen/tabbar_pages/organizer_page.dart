@@ -35,16 +35,26 @@ class OrganizerPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               trailing: PopupMenuButton(
+                color: Theme.of(context).primaryColor,
                 icon: const Icon(Icons.more_horiz_outlined),
                 itemBuilder: (context) => [
-                  const PopupMenuItem(
-                    child: Text("Edit"),
+                  PopupMenuItem(
+                    child: Text(
+                      "Edit",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
                   ),
-                  const PopupMenuItem(
-                    child: Text("Remove"),
+                  PopupMenuItem(
+                    child: Text(
+                      "Remove",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
                   ),
-                  const PopupMenuItem(
-                    child: Text("Call"),
+                  PopupMenuItem(
+                    child: Text(
+                      "Call",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
                   ),
                 ],
               ),
