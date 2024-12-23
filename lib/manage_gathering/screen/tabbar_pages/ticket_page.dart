@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/widgets/ticket_widget.dart';
+import 'package:manage_gathering/manage_gathering/screen/ticket_edit/ticket_edit_page.dart';
 
 class TicketPage extends StatelessWidget {
   const TicketPage({super.key});
@@ -15,7 +16,7 @@ class TicketPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
             TickectWidget(
@@ -45,7 +46,7 @@ class TicketPage extends StatelessWidget {
               ),
             ),
             const TickectWidget(
-              ticketType: "Golden Pass",
+              ticketType: "Golden Pass ",
               ticketPrice: "450.00",
               seatCount: "30/30",
               strickedPrice: "₹ 500.0",
@@ -59,6 +60,29 @@ class TicketPage extends StatelessWidget {
               strickedPrice: "",
               status: "",
               rowWidget: null,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TicketEditPage(),
+                        ));
+                  },
+                  label: const Text(
+                    "Create Ticket",
+                  ),
+                  icon: const Icon(
+                    Icons.add,
+                    size: 18,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

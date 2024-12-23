@@ -58,10 +58,10 @@ class TicketEditPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: DropdownButtonFormField(
-                        style: const TextStyle(color: Colors.black),
-                        hint: Text(
+                        dropdownColor: Theme.of(context).primaryColor,
+                        hint: const Text(
                           "GST %",
-                          style: Theme.of(context).textTheme.labelMedium,
+                          // style: Theme.of(context).textTheme.labelMedium,
                         ),
                         validator: (value) {
                           if (value != null) {
@@ -121,11 +121,11 @@ class TicketEditPage extends StatelessWidget {
                             return "Enter valid amount";
                           }
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "Discount amount",
-                          labelStyle: Theme.of(context).textTheme.labelLarge,
+                          // labelStyle: Theme.of(context).textTheme.labelLarge,
                           hintText: "Discount amount (INR)",
-                          suffixIcon: const Row(
+                          suffixIcon: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

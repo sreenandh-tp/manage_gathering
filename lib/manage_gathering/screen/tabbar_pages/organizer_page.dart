@@ -61,19 +61,28 @@ class OrganizerPage extends StatelessWidget {
             );
           },
         ),
-        TextButton.icon(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AddOrganizerPage(),
-                  ));
-            },
-            icon: const Icon(Icons.add),
-            label: const Text(
-              'Add organizer',
-              // style: Theme.of(context).textTheme.titleSmall,
-            ))
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddOrganizerPage(),
+                      ));
+                },
+                label: const Text(
+                  "Add Oraganizer",
+                ),
+                icon: const Icon(
+                  Icons.add,
+                  size: 18,
+                  color: Colors.deepPurple,
+                ),
+              )),
+        ),
       ],
     );
   }

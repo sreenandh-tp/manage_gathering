@@ -17,6 +17,7 @@ class AcceptOrRejectButton extends StatelessWidget {
           width: 34,
           child: IconButton.outlined(
             padding: const EdgeInsets.all(0),
+            color: Theme.of(context).textTheme.labelMedium?.color,
             onPressed: () {
               showDialog(
                 context: context,

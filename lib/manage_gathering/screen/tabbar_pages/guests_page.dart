@@ -7,7 +7,7 @@ class GuestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 12),

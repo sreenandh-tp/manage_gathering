@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       //LIGHT THEME
       theme: ThemeData(
         primaryColor: const Color.fromARGB(255, 243, 238, 251),
-        dialogTheme: const DialogTheme(backgroundColor: Colors.white70),
+        dialogTheme: const DialogTheme(backgroundColor: Colors.white),
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.white),
         bottomAppBarTheme: const BottomAppBarTheme(color: Colors.white),
@@ -65,18 +65,22 @@ class MyApp extends StatelessWidget {
         bottomAppBarTheme: const BottomAppBarTheme(color: Colors.black),
         cardColor: Colors.black12,
         cardTheme: CardTheme(
-            color: Colors.black12,
-            shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.white30),
-                borderRadius: BorderRadius.circular(10))),
+          color: Colors.black12,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.white30),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
         outlinedButtonTheme: const OutlinedButtonThemeData(
             style: ButtonStyle(
                 iconColor: WidgetStatePropertyAll(Colors.white),
                 side: WidgetStatePropertyAll(BorderSide(color: Colors.white)))),
         popupMenuTheme: const PopupMenuThemeData(iconColor: Colors.white),
         iconButtonTheme: const IconButtonThemeData(
-            style:
-                ButtonStyle(iconColor: WidgetStatePropertyAll(Colors.white))),
+          style: ButtonStyle(
+            iconColor: WidgetStatePropertyAll(Colors.white),
+          ),
+        ),
         appBarTheme: const AppBarTheme(color: Colors.black),
         tabBarTheme: const TabBarTheme(
           labelColor: Colors.white,

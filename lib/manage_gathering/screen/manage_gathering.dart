@@ -9,8 +9,40 @@ import 'package:manage_gathering/manage_gathering/screen/widgets/gathering_statu
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/guests_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/organizer_page.dart';
 
-class ManageGatheringPage extends StatelessWidget {
+class ManageGatheringPage extends StatefulWidget {
   const ManageGatheringPage({super.key});
+
+  @override
+  State<ManageGatheringPage> createState() => _ManageGatheringPageState();
+}
+
+class _ManageGatheringPageState extends State<ManageGatheringPage> {
+  final ScrollController scrollController = ScrollController();
+  bool isCollapsed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(onScroll);
+  }
+
+  void onScroll() {
+    if (scrollController.offset > 50 && !isCollapsed) {
+      setState(() {
+        isCollapsed = true;
+      });
+    } else if (scrollController.offset <= 50 && isCollapsed) {
+      setState(() {
+        isCollapsed = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +128,9 @@ class ManageGatheringPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: isCollapsed ? 70 : 150,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.only(top: 15, left: 18, right: 10),
@@ -108,8 +142,8 @@ class ManageGatheringPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 70,
-                        width: 70,
+                        height: isCollapsed ? 40 : 70,
+                        width: isCollapsed ? 40 : 70,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         child: ClipRRect(
@@ -122,22 +156,35 @@ class ManageGatheringPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Join me for a delectable evening!",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            const SizedBox(height: 5),
-                            Text("Starbucks , Trivandrum",
-                                style: Theme.of(context).textTheme.titleSmall),
-                            Text("30 May 2024 at 9:00 PM",
-                                style: Theme.of(context).textTheme.titleSmall)
-                          ],
+                        child: AnimatedCrossFade(
+                          duration: const Duration(milliseconds: 300),
+                          crossFadeState: isCollapsed
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
+                          firstChild: Text(
+                            "Join me for a delectable evening!",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          secondChild: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Join me for a delectable evening!",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              const SizedBox(height: 5),
+                              Text("Starbucks , Trivandrum",
+                                  style:
+                                      Theme.of(context).textTheme.titleSmall),
+                              Text("30 May 2024 at 9:00 PM",
+                                  style: Theme.of(context).textTheme.titleSmall)
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -177,6 +224,7 @@ class ManageGatheringPage extends StatelessWidget {
                   children: [
                     TabBar(
                         tabAlignment: TabAlignment.fill,
+
                         // isScrollable: true,
                         indicatorColor: Colors.deepPurple,
                         indicatorSize: TabBarIndicatorSize.tab,
