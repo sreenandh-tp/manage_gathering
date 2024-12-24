@@ -25,21 +25,23 @@ class TickectWidget extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            // dense: true,
-            title: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                ticketType,
-                softWrap: true,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+            dense: true,
+            title: Wrap(
+              children: [
+                Text(
+                  ticketType,
+                  softWrap: true,
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Text(
+                  status,
+                  style: Theme.of(context).textTheme.titleSmall?.merge(
+                        const TextStyle(color: Colors.red),
+                      ),
+                ),
+              ],
             ),
-            // title: Text(
-            //   status,
-            //   style: Theme.of(context).textTheme.titleSmall?.merge(
-            //         const TextStyle(color: Colors.red),
-            //       ),
-            // ),
             trailing: IconButton(
                 alignment: Alignment.topRight,
                 onPressed: () {
@@ -70,7 +72,7 @@ class TickectWidget extends StatelessWidget {
                             decorationColor:
                                 Theme.of(context).textTheme.labelSmall?.color,
                             decoration: TextDecoration.lineThrough,
-                            decorationThickness: 4,
+                            decorationThickness: 3,
                           )),
                 ),
               ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:manage_gathering/core/lists_page.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/screens/manage_bank_account.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -14,14 +16,20 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: settingsItems.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ManageBankAccountPage(),
+                  ));
+            },
             child: ListTile(
-              leading: const Icon(Icons.settings),
+              leading: icons[index],
               title: Text(
-                "Location information",
+                settingsItems[index],
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),

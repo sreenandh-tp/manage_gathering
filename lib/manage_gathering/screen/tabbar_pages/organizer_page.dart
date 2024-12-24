@@ -50,9 +50,8 @@ class OrganizerPage extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               "Remove?",
-                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             content: Text(
                               "Are you sure you want to remove this person?",
@@ -71,15 +70,13 @@ class OrganizerPage extends StatelessWidget {
                         },
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "Remove",
-                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     child: Text(
                       "Call",
-                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),
                 ],

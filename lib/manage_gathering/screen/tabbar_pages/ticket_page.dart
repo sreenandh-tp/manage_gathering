@@ -21,7 +21,7 @@ class TicketPage extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
             TickectWidget(
-              ticketType: "Free Pass uest required approval for joining",
+              ticketType: "Free Pass",
               ticketPrice: "00.00",
               seatCount: "25/50",
               status: "",
@@ -47,7 +47,7 @@ class TicketPage extends StatelessWidget {
               ),
             ),
             const TickectWidget(
-              ticketType: "Golden Pass ",
+              ticketType: "Golden Pass",
               ticketPrice: "450.00",
               seatCount: "30/30",
               strickedPrice: "₹ 500.0",

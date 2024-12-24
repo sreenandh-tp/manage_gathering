@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manage_gathering/core/lists_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/widgets/accept_reject_button.dart';
 
 class GuestsPage extends StatelessWidget {
@@ -14,16 +15,17 @@ class GuestsPage extends StatelessWidget {
             height: 60,
             width: double.infinity,
             child: ListView.builder(
+              padding: const EdgeInsets.only(left: 10, right: 10),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: 4,
+              itemCount: guestFiltters.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Chip(
                     elevation: 0,
                     label: Text(
-                      "Varified",
+                      guestFiltters[index],
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),
