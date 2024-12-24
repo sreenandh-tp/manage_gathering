@@ -17,7 +17,7 @@ class TicketEditPage extends StatelessWidget {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: const CloseButton(),
         title: Text(
@@ -28,7 +28,6 @@ class TicketEditPage extends StatelessWidget {
       body: Form(
         key: ticketValidation,
         child: ListView(
-          itemExtent: 68,
           children: [
             const TicketTextFieldWidget(
               labelText: "Ticket Name",
@@ -100,10 +99,15 @@ class TicketEditPage extends StatelessWidget {
                         },
                       );
                     }),
-                Text(
-                  "Apply Discount",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
+                TextButton(
+                  onPressed: () {
+                    isChecked();
+                  },
+                  child: Text(
+                    "Apply Discount",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                )
               ],
             ),
             ValueListenableBuilder(
@@ -121,7 +125,7 @@ class TicketEditPage extends StatelessWidget {
                             return "Enter valid amount";
                           }
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: "Discount amount",
                           // labelStyle: Theme.of(context).textTheme.labelLarge,
                           hintText: "Discount amount (INR)",
@@ -129,13 +133,13 @@ class TicketEditPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Icon(Icons.percent),
-                              SizedBox(width: 30),
-                              Icon(
-                                Icons.currency_rupee,
-                                color: Colors.indigo,
-                              ),
-                              SizedBox(width: 20),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.percent)),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.currency_rupee)),
+                              const SizedBox(width: 20),
                             ],
                           ),
                         ),
@@ -144,57 +148,80 @@ class TicketEditPage extends StatelessWidget {
                   );
                 }),
 
-            ValueListenableBuilder(
-                valueListenable: isCheckedNotifier,
-                builder: (BuildContext context, dynamic, Widget? child) {
-                  return Visibility(
-                    visible: isCheckedNotifier.value,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isNotEmpty) {
-                                return null;
-                              }
-                              return "Enter valid time";
-                            },
-                            showCursor: false,
-                            keyboardType: TextInputType.none,
-                            decoration: InputDecoration(
-                              hintText: "DD/MM/YYYY",
-                              labelText: "Start on",
-                              suffix: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.calendar_today_outlined),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ValueListenableBuilder(
+                  valueListenable: isCheckedNotifier,
+                  builder: (BuildContext context, dynamic, Widget? child) {
+                    return Visibility(
+                      visible: isCheckedNotifier.value,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: TextFormField(
+                              validator: (value) {
+                                if (value!.isNotEmpty) {
+                                  return null;
+                                }
+                                return "Enter valid time";
+                              },
+                              showCursor: false,
+                              keyboardType: TextInputType.none,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.calendar_today_outlined,
+                                    size: 18,
+                                  ),
+                                ),
+                                hintText: "DD/MM/YYYY",
+                                labelText: "Start on",
+                                isDense: true,
                               ),
-                            ),
-                          )),
-                          const SizedBox(width: 20),
-                          Expanded(
-                              child: TextFormField(
-                            showCursor: false,
-                            keyboardType: TextInputType.none,
-                            decoration: InputDecoration(
-                              hintText: "DD/MM/YYYY",
-                              labelText: "End on (Optional)",
-                              suffix: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.calendar_today_outlined),
+                            )),
+                            const SizedBox(width: 20),
+                            Expanded(
+                                child: TextFormField(
+                              showCursor: false,
+                              keyboardType: TextInputType.none,
+                              decoration: InputDecoration(
+                                hintText: "DD/MM/YYYY",
+                                labelText: "End on (Optional)",
+                                isDense: true,
+                                suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.calendar_today_outlined,
+                                    size: 18,
+                                  ),
+                                ),
                               ),
-                            ),
-                          )),
-                        ],
+                            )),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: TextFormField(
+                minLines: 1,
+                maxLines: 3,
+                decoration: const InputDecoration(
+                  labelText: "Pass information",
+                  hintText: "Enter your short information",
+                ),
+              ),
+            )
           ],
         ),
       ),
-      bottomSheet: BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         child: Align(
           alignment: Alignment.bottomCenter,
           child: SizedBox(

@@ -19,8 +19,9 @@ class TicketPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
+            const SizedBox(height: 10),
             TickectWidget(
-              ticketType: "Free Pass",
+              ticketType: "Free Pass uest required approval for joining",
               ticketPrice: "00.00",
               seatCount: "25/50",
               status: "",

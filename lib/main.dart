@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
 
       //LIGHT THEME
       theme: ThemeData(
-        useMaterial3: true,
         primaryColor: const Color.fromARGB(255, 243, 238, 251),
         dialogTheme: const DialogTheme(backgroundColor: Colors.white),
         bottomSheetTheme:
@@ -57,10 +56,10 @@ class MyApp extends StatelessWidget {
         chipTheme: const ChipThemeData(
           backgroundColor: Color.fromARGB(255, 245, 240, 255),
         ),
+        useMaterial3: true,
       ),
       // DARK THEME
       darkTheme: ThemeData(
-        useMaterial3: true,
         primaryColor: Colors.black,
         dialogTheme: const DialogTheme(backgroundColor: Colors.black87),
         bottomSheetTheme:
@@ -103,6 +102,7 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: Colors.black,
         chipTheme: const ChipThemeData(backgroundColor: Colors.black),
+        useMaterial3: true,
       ),
       home: const ManageGatheringPage(),
       debugShowCheckedModeBanner: false,

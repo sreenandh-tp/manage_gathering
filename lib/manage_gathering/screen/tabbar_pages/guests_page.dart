@@ -8,75 +8,72 @@ class GuestsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+        shrinkWrap: true,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 12),
-            child: Row(
-              children: [
-                Chip(
-                  elevation: 0,
-                  label: Text(
-                    "All",
-                    style: Theme.of(context).textTheme.labelMedium,
+          SizedBox(
+            height: 60,
+            width: double.infinity,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Chip(
+                    elevation: 0,
+                    label: Text(
+                      "Varified",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 6),
-                Chip(
-                  label: Text(
-                    "Verified",
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                ),
-                const SizedBox(width: 6),
-                Chip(
-                  label: Text(
-                    "Rejected",
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                ),
-              ],
+                );
+              },
             ),
           ),
-          const SizedBox(height: 10),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 12,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  manageGatheringBottomSheet(context);
-                },
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage("asset/dummyperson.png"),
+          // const SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 12,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    manageGatheringBottomSheet(context);
+                  },
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                      radius: 20,
+                      backgroundImage: AssetImage("asset/dummyperson.png"),
+                    ),
+                    title: Text(
+                      "John Doe",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    subtitle: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text("10 min ago",
+                            style: Theme.of(context).textTheme.labelSmall),
+                        const SizedBox(width: 8),
+                        const Icon(
+                          Icons.confirmation_num_outlined,
+                          size: 15,
+                        ),
+                        const SizedBox(width: 4),
+                        Text("1 pass",
+                            style: Theme.of(context).textTheme.labelSmall)
+                      ],
+                    ),
+                    trailing: const AcceptOrRejectButton(),
                   ),
-                  title: Text(
-                    "John Doe",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  subtitle: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text("10 min ago",
-                          style: Theme.of(context).textTheme.labelSmall),
-                      const SizedBox(width: 8),
-                      const Icon(
-                        Icons.confirmation_num_outlined,
-                        size: 15,
-                      ),
-                      const SizedBox(width: 4),
-                      Text("1 pass",
-                          style: Theme.of(context).textTheme.labelSmall)
-                    ],
-                  ),
-                  trailing: const AcceptOrRejectButton(),
-                ),
-              );
-            },
+                );
+              },
+            ),
           )
         ],
       ),

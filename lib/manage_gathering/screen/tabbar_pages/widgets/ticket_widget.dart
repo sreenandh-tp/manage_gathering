@@ -25,22 +25,21 @@ class TickectWidget extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            minTileHeight: 30,
-            dense: true,
-            contentPadding: const EdgeInsets.only(
-              left: 15,
-              right: 5,
+            // dense: true,
+            title: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                ticketType,
+                softWrap: true,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
-            leading: Text(
-              ticketType,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            title: Text(
-              status,
-              style: Theme.of(context).textTheme.titleSmall?.merge(
-                    const TextStyle(color: Colors.red),
-                  ),
-            ),
+            // title: Text(
+            //   status,
+            //   style: Theme.of(context).textTheme.titleSmall?.merge(
+            //         const TextStyle(color: Colors.red),
+            //       ),
+            // ),
             trailing: IconButton(
                 alignment: Alignment.topRight,
                 onPressed: () {
@@ -56,7 +55,7 @@ class TickectWidget extends StatelessWidget {
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: Row(
               children: [
                 Text(
@@ -88,6 +87,9 @@ class TickectWidget extends StatelessWidget {
                 const SizedBox(width: 15),
                 Text("₹1500 Sales",
                     style: Theme.of(context).textTheme.titleSmall),
+                const SizedBox(width: 15),
+                Text("20 Check-in",
+                    style: Theme.of(context).textTheme.titleSmall),
               ],
             ),
           ),
@@ -95,6 +97,59 @@ class TickectWidget extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              "Remove",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            content: Text(
+                              "Are you sure you want to remove this ticket?",
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Cancel")),
+                              TextButton(
+                                  onPressed: () {}, child: const Text("Remove"))
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    label: const Text("Remove")),
+
+                // switch button
+                Row(
+                  children: [
+                    Text(
+                      "Stop Selling",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    Switch(
+                      value: false,
+                      onChanged: (value) {},
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
         ],
       ),
     );

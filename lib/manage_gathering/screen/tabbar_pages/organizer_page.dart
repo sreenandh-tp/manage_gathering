@@ -45,6 +45,32 @@ class OrganizerPage extends StatelessWidget {
                     ),
                   ),
                   PopupMenuItem(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              "Remove?",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            content: Text(
+                              "Are you sure you want to remove this person?",
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Cancel")),
+                              TextButton(
+                                  onPressed: () {}, child: const Text("Remove"))
+                            ],
+                          );
+                        },
+                      );
+                    },
                     child: Text(
                       "Remove",
                       style: Theme.of(context).textTheme.labelMedium,

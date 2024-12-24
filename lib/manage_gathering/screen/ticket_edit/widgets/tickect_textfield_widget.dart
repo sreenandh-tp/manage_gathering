@@ -29,12 +29,8 @@ class TicketTextFieldWidget extends StatelessWidget {
         },
         decoration: InputDecoration(
           helperText: helpText,
-          helperStyle: Theme.of(context)
-              .textTheme
-              .labelSmall
-              ?.merge(const TextStyle(color: Colors.deepPurple)),
+          helperStyle: Theme.of(context).textTheme.labelSmall,
           labelText: labelText,
-          // labelStyle: Theme.of(context).textTheme.labelMedium,
           hintText: hintText,
         ),
       ),

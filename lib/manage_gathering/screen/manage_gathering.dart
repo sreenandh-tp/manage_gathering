@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/edit_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/export_guest_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/invite_guest_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/send_notification_page.dart';
-import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/view_order_page.dart';
+
+import 'package:manage_gathering/manage_gathering/screen/settings/settings_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/ticket_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/widgets/gathering_status_row.dart';
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/guests_page.dart';
@@ -20,11 +20,18 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         leading: const BackButton(),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(),
+                  ));
+            },
             icon: const Icon(Icons.settings),
           ),
           PopupMenuButton(
@@ -32,11 +39,11 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const EditPage(),
-                      ));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const EditPage(),
+                  //     ));
                 },
                 child: Text(
                   "Edit",
@@ -45,11 +52,11 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
               ),
               PopupMenuItem(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ViewOrderPage(),
-                      ));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const ViewOrderPage(),
+                  //     ));
                 },
                 child: Text(
                   "View order",
@@ -101,7 +108,8 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.only(top: 15, left: 18, right: 10),
@@ -174,7 +182,8 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
           ),
           const SizedBox(height: 4),
           Expanded(
-            child: SizedBox(
+            child: Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
               width: double.infinity,
               child: DefaultTabController(
                 length: 3,
