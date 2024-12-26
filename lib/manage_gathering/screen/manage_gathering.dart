@@ -43,9 +43,9 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                   //       builder: (context) => const EditPage(),
                   //     ));
                 },
-                child: const Text(
+                child: Text(
                   "Edit",
-                  // style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
               PopupMenuItem(
@@ -56,9 +56,9 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                   //       builder: (context) => const ViewOrderPage(),
                   //     ));
                 },
-                child: const Text(
-                  "View order",
-                  // style: Theme.of(context).textTheme.labelMedium,
+                child: Text(
+                  "Vie order",
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
               PopupMenuItem(
@@ -69,9 +69,9 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                         builder: (context) => const SendNotificationPage(),
                       ));
                 },
-                child: const Text(
+                child: Text(
                   "Send a Notification",
-                  // style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
               PopupMenuItem(
@@ -82,9 +82,9 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                         builder: (context) => const InviteGuestPage(),
                       ));
                 },
-                child: const Text(
+                child: Text(
                   "Invite guest",
-                  // style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
             ],

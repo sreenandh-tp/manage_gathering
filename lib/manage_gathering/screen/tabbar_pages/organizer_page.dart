@@ -70,13 +70,15 @@ class OrganizerPage extends StatelessWidget {
                         },
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       "Remove",
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     child: Text(
                       "Call",
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),
                 ],

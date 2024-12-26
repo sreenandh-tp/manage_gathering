@@ -6,7 +6,7 @@ class ManageBankAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: const CloseButton(),
         title: Text(
@@ -14,8 +14,7 @@ class ManageBankAccountPage extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 10, top: 10),
@@ -35,7 +34,7 @@ class ManageBankAccountPage extends StatelessWidget {
               child: const Icon(Icons.account_balance_outlined),
             ),
             title: Text(
-              "AACOUNT HOLDER",
+              "ACCOUNT HOLDER",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Column(
@@ -43,7 +42,7 @@ class ManageBankAccountPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "4220*********0126",
+                  "4220******0126",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 Text(
@@ -58,7 +57,7 @@ class ManageBankAccountPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 10, top: 30),
+            padding: const EdgeInsets.only(left: 15, right: 10, top: 25),
             child: Text(
               "UPDATED ACCOUNT DETAILS",
               style: Theme.of(context).textTheme.titleMedium,
