@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/invite_guest_page.dart';
-import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/send_notification_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/settings_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/ticket_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/widgets/gathering_status_row.dart';
@@ -58,19 +57,6 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                 },
                 child: Text(
                   "View order",
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-              ),
-              PopupMenuItem(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SendNotificationPage(),
-                      ));
-                },
-                child: Text(
-                  "Send a Notification",
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),

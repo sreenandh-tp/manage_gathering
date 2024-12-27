@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/screens/forms_builder.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/screens/manage_bank_account.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/screens/send_notification_page.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/screens/settlement_and_refund.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/screens/terms_and_condition.dart';
 
 final List<Widget> icons = [
   const Icon(Icons.account_balance_outlined),
@@ -32,4 +36,10 @@ final List<String> guestFiltters = [
   "Cancelled",
 ];
 
-List pagesRoute = [const ManageBankAccountPage()];
+List pagesRoute = [
+  const ManageBankAccountPage(),
+  SettlementAndRefundPage(),
+  const FormsBuilderPage(),
+  const TermsAndConditionPage(),
+  const SendNotificationPage(),
+];
