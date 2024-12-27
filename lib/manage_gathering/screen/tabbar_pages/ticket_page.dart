@@ -26,25 +26,28 @@ class TicketPage extends StatelessWidget {
               seatCount: "25/50",
               status: "",
               strickedPrice: "",
-              rowWidget: Row(
-                children: [
-                  ValueListenableBuilder(
-                      valueListenable: isCheckedNotifier,
-                      builder: (BuildContext context, dynamic newCheckedValue,
-                          Widget? child) {
-                        return Checkbox(
-                          value: isCheckedNotifier.value,
-                          onChanged: (value) {
-                            isChecked();
-                          },
-                        );
-                      }),
-                  Text(
-                    "Guest required approval for joining",
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                ],
-              ),
+              rowWidget: ValueListenableBuilder(
+                  valueListenable: isCheckedNotifier,
+                  builder: (BuildContext context, dynamic newCheckedValue,
+                      Widget? child) {
+                    return ListTile(
+                      onTap: () {
+                        isChecked();
+                      },
+                      contentPadding: const EdgeInsets.only(left: 0),
+                      horizontalTitleGap: 5,
+                      leading: Checkbox(
+                        value: isCheckedNotifier.value,
+                        onChanged: (value) {
+                          isChecked();
+                        },
+                      ),
+                      title: Text(
+                        "Guest required approval for joining",
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    );
+                  }),
             ),
             const TickectWidget(
               ticketType: "Golden Pass",

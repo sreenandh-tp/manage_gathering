@@ -26,6 +26,7 @@ class TickectWidget extends StatelessWidget {
         children: [
           ListTile(
             dense: true,
+            enabled: true,
             title: Wrap(
               children: [
                 Text(
@@ -43,6 +44,7 @@ class TickectWidget extends StatelessWidget {
               ],
             ),
             trailing: IconButton(
+                padding: const EdgeInsets.only(right: 0, top: 10),
                 alignment: Alignment.topRight,
                 onPressed: () {
                   Navigator.push(
@@ -99,56 +101,56 @@ class TickectWidget extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton.icon(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              "Remove",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            content: Text(
-                              "Are you sure you want to remove this ticket?",
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("Cancel")),
-                              TextButton(
-                                  onPressed: () {}, child: const Text("Remove"))
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    label: const Text("Remove")),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 15),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       TextButton.icon(
+          //           onPressed: () {
+          //             showDialog(
+          //               context: context,
+          //               builder: (context) {
+          //                 return AlertDialog(
+          //                   title: Text(
+          //                     "Remove",
+          //                     style: Theme.of(context).textTheme.titleMedium,
+          //                   ),
+          //                   content: Text(
+          //                     "Are you sure you want to remove this ticket?",
+          //                     style: Theme.of(context).textTheme.titleSmall,
+          //                   ),
+          //                   actions: [
+          //                     TextButton(
+          //                         onPressed: () {
+          //                           Navigator.pop(context);
+          //                         },
+          //                         child: const Text("Cancel")),
+          //                     TextButton(
+          //                         onPressed: () {}, child: const Text("Remove"))
+          //                   ],
+          //                 );
+          //               },
+          //             );
+          //           },
+          //           label: const Text("Remove")),
 
-                // switch button
-                Row(
-                  children: [
-                    Text(
-                      "Stop Selling",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    Switch(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
+          //       // switch button
+          //       Row(
+          //         children: [
+          //           Text(
+          //             "Stop Selling",
+          //             style: Theme.of(context).textTheme.labelMedium,
+          //           ),
+          //           Switch(
+          //             value: false,
+          //             onChanged: (value) {},
+          //           ),
+          //         ],
+          //       )
+          //     ],
+          //   ),
+          // ),
           const SizedBox(
             height: 15,
           ),

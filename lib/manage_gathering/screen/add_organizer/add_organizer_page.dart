@@ -6,6 +6,7 @@ class AddOrganizerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: const CloseButton(),
         title: Text(
@@ -25,7 +26,7 @@ class AddOrganizerPage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              "Role",
+              "Assign Role",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 12),

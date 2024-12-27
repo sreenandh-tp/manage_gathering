@@ -32,16 +32,19 @@ class TicketEditPage extends StatelessWidget {
             const TicketTextFieldWidget(
               labelText: "Ticket Name",
               hintText: "Enter your ticket name",
+              textInputType: TextInputType.name,
             ),
             const TicketTextFieldWidget(
               labelText: "Number of tickets",
               hintText: "0",
+              textInputType: TextInputType.number,
             ),
             const TicketTextFieldWidget(
               labelText: "Max tickets allowed per user",
               hintText: "0",
               helpText:
                   "Specify the maximum number of tickets a user can purchase.",
+              textInputType: TextInputType.number,
             ),
             // PRICE & GST FIELD
             Row(
@@ -51,6 +54,7 @@ class TicketEditPage extends StatelessWidget {
                     child: TicketTextFieldWidget(
                       labelText: "Price",
                       hintText: "0.00",
+                      textInputType: TextInputType.number,
                     )),
                 Expanded(
                     flex: 2,
@@ -86,38 +90,39 @@ class TicketEditPage extends StatelessWidget {
               ],
             ),
             // apply discount check box
-            Row(
-              children: [
-                ValueListenableBuilder(
-                    valueListenable: isCheckedNotifier,
-                    builder: (BuildContext context, dynamic newCheckedValue,
-                        Widget? child) {
-                      return Checkbox(
-                        value: isCheckedNotifier.value,
-                        onChanged: (value) {
-                          isChecked();
-                        },
-                      );
-                    }),
-                TextButton(
-                  onPressed: () {
-                    isChecked();
-                  },
-                  child: Text(
-                    "Apply Discount",
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                )
-              ],
-            ),
+            ValueListenableBuilder(
+                valueListenable: isCheckedNotifier,
+                builder: (BuildContext context, dynamic newCheckedValue,
+                    Widget? child) {
+                  return ListTile(
+                    contentPadding: const EdgeInsets.only(left: 0),
+                    horizontalTitleGap: 5,
+                    dense: true,
+                    onTap: () {
+                      isChecked();
+                    },
+                    leading: Checkbox(
+                      value: isCheckedNotifier.value,
+                      onChanged: (value) {
+                        isChecked();
+                      },
+                    ),
+                    title: Text(
+                      "Apply Discount",
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                  );
+                }),
             ValueListenableBuilder(
                 valueListenable: isCheckedNotifier,
                 builder: (BuildContext context, dynamic, Widget? child) {
                   return Visibility(
                     visible: isCheckedNotifier.value,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 15),
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value!.isNotEmpty) {
                             return null;
@@ -148,67 +153,65 @@ class TicketEditPage extends StatelessWidget {
                   );
                 }),
 
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: ValueListenableBuilder(
-                  valueListenable: isCheckedNotifier,
-                  builder: (BuildContext context, dynamic, Widget? child) {
-                    return Visibility(
-                      visible: isCheckedNotifier.value,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: TextFormField(
-                              validator: (value) {
-                                if (value!.isNotEmpty) {
-                                  return null;
-                                }
-                                return "Enter valid time";
-                              },
-                              showCursor: false,
-                              keyboardType: TextInputType.none,
-                              decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.calendar_today_outlined,
-                                    size: 18,
-                                  ),
-                                ),
-                                hintText: "DD/MM/YYYY",
-                                labelText: "Start on",
-                                isDense: true,
-                              ),
-                            )),
-                            const SizedBox(width: 20),
-                            Expanded(
-                                child: TextFormField(
-                              showCursor: false,
-                              keyboardType: TextInputType.none,
-                              decoration: InputDecoration(
-                                hintText: "DD/MM/YYYY",
-                                labelText: "End on (Optional)",
-                                isDense: true,
-                                suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.calendar_today_outlined,
-                                    size: 18,
-                                  ),
+            ValueListenableBuilder(
+                valueListenable: isCheckedNotifier,
+                builder: (BuildContext context, dynamic, Widget? child) {
+                  return Visibility(
+                    visible: isCheckedNotifier.value,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          right: 15, left: 15, bottom: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isNotEmpty) {
+                                return null;
+                              }
+                              return "Enter valid time";
+                            },
+                            showCursor: false,
+                            keyboardType: TextInputType.none,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.calendar_today_outlined,
+                                  size: 18,
                                 ),
                               ),
-                            )),
-                          ],
-                        ),
+                              hintText: "DD/MM/YYYY",
+                              labelText: "Start on",
+                              isDense: true,
+                            ),
+                          )),
+                          const SizedBox(width: 20),
+                          Expanded(
+                              child: TextFormField(
+                            showCursor: false,
+                            keyboardType: TextInputType.none,
+                            decoration: InputDecoration(
+                              hintText: "DD/MM/YYYY",
+                              labelText: "End on (Optional)",
+                              isDense: true,
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.calendar_today_outlined,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                          )),
+                        ],
                       ),
-                    );
-                  }),
-            ),
+                    ),
+                  );
+                }),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
               child: TextFormField(
                 minLines: 1,
                 maxLines: 3,

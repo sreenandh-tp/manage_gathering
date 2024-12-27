@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:manage_gathering/manage_gathering/screen/manage_gathering.dart';
 import 'package:manage_gathering/theme/theme_class.dart';
 
@@ -12,14 +15,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    log("material called");
+    return GetMaterialApp(
       themeMode: ThemeMode.system,
-
-      //LIGHT THEME
-      theme: ThemeClass.lightTheme,
-      // DARK THEME
-      darkTheme: ThemeClass.darkTheme,
+      theme: ThemeClass().lightTheme,
+      darkTheme: ThemeClass().darkTheme,
       home: const ManageGatheringPage(),
       debugShowCheckedModeBanner: false,
     );

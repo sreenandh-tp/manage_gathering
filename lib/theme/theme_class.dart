@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 //Light Theme
-class ThemeClass {
-  static ThemeData lightTheme = ThemeData(
+class ThemeClass extends GetxController {
+  // static ThemeData lightMode = ThemeData.light();
+  //  static ThemeData darkMode = ThemeData.dark();
+
+  ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
     primaryColor: const Color.fromARGB(255, 243, 238, 251),
     dialogTheme: const DialogTheme(backgroundColor: Colors.white),
     bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
@@ -25,17 +31,17 @@ class ThemeClass {
       dividerColor: Colors.black26,
     ),
     iconTheme: const IconThemeData(color: Colors.black45),
-    textTheme: const TextTheme(
-      titleLarge: TextStyle(color: Colors.black),
-      titleMedium: TextStyle(color: Colors.black),
-      titleSmall: TextStyle(color: Colors.black),
-      labelLarge: TextStyle(color: Colors.black),
-      labelMedium: TextStyle(color: Colors.black),
-      labelSmall: TextStyle(color: Colors.black),
-      bodyLarge: TextStyle(color: Colors.black),
-      bodyMedium: TextStyle(color: Colors.black),
-      bodySmall: TextStyle(color: Colors.black),
-    ),
+    // textTheme: const TextTheme(
+    //   titleLarge: TextStyle(color: Colors.black),
+    //   titleMedium: TextStyle(color: Colors.black),
+    //   titleSmall: TextStyle(color: Colors.black),
+    //   labelLarge: TextStyle(color: Colors.black),
+    //   labelMedium: TextStyle(color: Colors.black),
+    //   labelSmall: TextStyle(color: Colors.black),
+    //   bodyLarge: TextStyle(color: Colors.black),
+    //   bodyMedium: TextStyle(color: Colors.black),
+    //   bodySmall: TextStyle(color: Colors.black),
+    // ),
     scaffoldBackgroundColor: Colors.white,
     chipTheme: const ChipThemeData(
       backgroundColor: Color.fromARGB(255, 245, 240, 255),
@@ -44,7 +50,8 @@ class ThemeClass {
   );
 
   //Dark Theme
-  static ThemeData darkTheme = ThemeData(
+  ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
     primaryColor: Colors.black,
     dialogTheme: const DialogTheme(backgroundColor: Colors.black87),
     bottomSheetTheme:
@@ -74,17 +81,17 @@ class ThemeClass {
       dividerColor: Colors.white24,
     ),
     iconTheme: const IconThemeData(color: Colors.white),
-    textTheme: const TextTheme(
-      titleLarge: TextStyle(color: Colors.white, fontSize: 18),
-      titleMedium: TextStyle(color: Colors.white),
-      titleSmall: TextStyle(color: Colors.white),
-      labelLarge: TextStyle(color: Colors.white),
-      labelMedium: TextStyle(color: Colors.white),
-      labelSmall: TextStyle(color: Colors.white),
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white),
-      bodySmall: TextStyle(color: Colors.white),
-    ),
+    // textTheme: const TextTheme(
+    //   titleLarge: TextStyle(color: Colors.white, fontSize: 18),
+    //   titleMedium: TextStyle(color: Colors.white),
+    //   titleSmall: TextStyle(color: Colors.white),
+    //   labelLarge: TextStyle(color: Colors.white),
+    //   labelMedium: TextStyle(color: Colors.white),
+    //   labelSmall: TextStyle(color: Colors.white),
+    //   bodyLarge: TextStyle(color: Colors.white),
+    //   bodyMedium: TextStyle(color: Colors.white),
+    //   bodySmall: TextStyle(color: Colors.white),
+    // ),
     scaffoldBackgroundColor: Colors.black,
     chipTheme: const ChipThemeData(backgroundColor: Colors.black),
     useMaterial3: true,

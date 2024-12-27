@@ -56,10 +56,10 @@ class AcceptOrRejectButton extends StatelessWidget {
           child: IconButton.filled(
               padding: const EdgeInsets.all(0),
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.check,
                 size: 18,
-                color: Colors.white,
+                color: Theme.of(context).primaryColor,
               )),
         )
       ],

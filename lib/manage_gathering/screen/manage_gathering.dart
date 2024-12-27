@@ -57,7 +57,7 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                   //     ));
                 },
                 child: Text(
-                  "Vie order",
+                  "View order",
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ManageBankAccountPage extends StatelessWidget {
   const ManageBankAccountPage({super.key});
@@ -66,6 +67,7 @@ class ManageBankAccountPage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
             child: TextField(
+              keyboardType: TextInputType.number,
               obscureText: true,
               decoration: InputDecoration(label: Text("Account Number")),
             ),
@@ -73,6 +75,8 @@ class ManageBankAccountPage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
             child: TextField(
+              inputFormatters: [],
+              keyboardType: TextInputType.number,
               decoration:
                   InputDecoration(label: Text("Corfirm account number")),
             ),
@@ -80,12 +84,14 @@ class ManageBankAccountPage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
             child: TextField(
+              textCapitalization: TextCapitalization.characters,
               decoration: InputDecoration(label: Text("IFSC Code")),
             ),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
             child: TextField(
+              textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(label: Text("Account holder name")),
             ),
           )
