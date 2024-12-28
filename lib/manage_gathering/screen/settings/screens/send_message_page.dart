@@ -9,49 +9,57 @@ class SendMessagePage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: const CloseButton(),
-        title: const Text("Send Massages"),
+        title: const Text("New Massage"),
       ),
-      body: ListView(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: TextFormField(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: ListView(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          children: [
+            TextFormField(
               style: Theme.of(context).textTheme.titleMedium,
               minLines: 1,
               maxLines: 3,
-              textCapitalization: TextCapitalization.words,
+              textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
-                  hintText: 'Message title',
+                  hintText: 'Massage title',
+                  label: const Text("Title"),
                   hintStyle: Theme.of(context).textTheme.titleMedium,
                   border: const UnderlineInputBorder(
                       // borderSide: BorderSide.none,
                       )),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: TextFormField(
-              textCapitalization: TextCapitalization.words,
+            TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               style: Theme.of(context).textTheme.titleMedium,
-              minLines: 1,
+              minLines: 3,
               maxLines: 50,
               decoration: InputDecoration(
-                  hintText: 'Message Content',
+                  label: const Text("Message Content"),
+                  hintText: 'Enter message content',
                   hintStyle: Theme.of(context).textTheme.titleSmall,
                   border: const UnderlineInputBorder(
                       // borderSide: BorderSide.none,
                       )),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: FilledButton(
-              onPressed: () {},
-              child: const Text("Send"),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: FilledButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.send,
+                    size: 18,
+                  ),
+                  label: const Text("Send"),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

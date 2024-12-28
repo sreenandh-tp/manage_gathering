@@ -64,21 +64,22 @@ class ManageBankAccountPage extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
             child: TextField(
               keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               obscureText: true,
-              decoration: InputDecoration(label: Text("Account Number")),
+              decoration: const InputDecoration(label: Text("Account Number")),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
             child: TextField(
-              inputFormatters: [],
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               keyboardType: TextInputType.number,
               decoration:
-                  InputDecoration(label: Text("Corfirm account number")),
+                  const InputDecoration(label: Text("Corfirm account number")),
             ),
           ),
           const Padding(

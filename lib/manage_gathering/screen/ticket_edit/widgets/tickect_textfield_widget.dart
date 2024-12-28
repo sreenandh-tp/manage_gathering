@@ -1,16 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TicketTextFieldWidget extends StatelessWidget {
   final String labelText;
   final String hintText;
   final String? helpText;
   final TextInputType textInputType;
+  final List<TextInputFormatter>? inputFormatter;
 
   const TicketTextFieldWidget({
     super.key,
     required this.labelText,
+    this.inputFormatter,
     required this.hintText,
     this.helpText, required this.textInputType,
   });
@@ -21,6 +24,7 @@ class TicketTextFieldWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
       child: TextFormField(
         keyboardType: textInputType,
+        inputFormatters:inputFormatter,
         validator: (value) {
           log("print value $value");
           if (value!.isNotEmpty) {

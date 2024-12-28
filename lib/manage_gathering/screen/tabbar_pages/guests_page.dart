@@ -41,38 +41,33 @@ class GuestsPage extends StatelessWidget {
               itemCount: 12,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return GestureDetector(
+                return ListTile(
                   onTap: () {
                     manageGatheringBottomSheet(context);
                   },
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      radius: 20,
-                      backgroundImage: AssetImage("asset/dummyperson.png"),
-                    ),
-                    title: Text(
-                      "John Doe",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    subtitle: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text("10 min ago",
-                            style: Theme.of(context).textTheme.labelSmall),
-                        const SizedBox(width: 8),
-                        const Icon(
-                          Icons.confirmation_num_outlined,
-                          size: 15,
-                        ),
-                        const SizedBox(width: 4),
-                        Text("1 pass",
-                            style: Theme.of(context).textTheme.labelSmall)
-                      ],
-                    ),
-                    trailing: const AcceptOrRejectButton(),
+                  leading: const CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage("asset/dummyperson.png"),
                   ),
+                  title: Text(
+                    "John Doe",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Text("10 min ago",
+                          style: Theme.of(context).textTheme.labelSmall),
+                      const SizedBox(width: 8),
+                      const Icon(
+                        Icons.confirmation_num_outlined,
+                        size: 15,
+                      ),
+                      const SizedBox(width: 4),
+                      Text("1 pass",
+                          style: Theme.of(context).textTheme.labelSmall)
+                    ],
+                  ),
+                  trailing: const AcceptOrRejectButton(),
                 );
               },
             ),

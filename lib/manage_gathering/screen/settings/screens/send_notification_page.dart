@@ -9,13 +9,7 @@ class SendNotificationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const CloseButton(),
-        title: const Text("Send Notifications"),
-        actions: [
-          FilledButton.icon(
-            onPressed: () {},
-            label: const Text("Sent Chat"),
-          )
-        ],
+        title: const Text("Push Notifications"),
       ),
       body: ListView(
         children: [
@@ -27,7 +21,7 @@ class SendNotificationPage extends StatelessWidget {
                 onTap: () {},
                 leading: const CircleAvatar(
                   radius: 20,
-                  child: Icon(Icons.person),
+                  child: Icon(Icons.notifications_none),
                 ),
                 title: Text("Message title",
                     maxLines: 2,
@@ -58,7 +52,7 @@ class SendNotificationPage extends StatelessWidget {
                 builder: (context) => const SendMessagePage(),
               ));
         },
-        label: const Text("Start Chat"),
+        label: const Text("New Message"),
         icon: const Icon(
           Icons.message,
           size: 18,

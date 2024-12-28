@@ -13,12 +13,7 @@ class GatheringLikesRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          count,
-          style: Theme.of(context).textTheme.titleMedium?.merge(
-                const TextStyle(fontWeight: FontWeight.w700),
-              ),
-        ),
+        Text(count, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(width: 4),
         Text(gatheringStatus, style: Theme.of(context).textTheme.labelLarge)
       ],
