@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manage_gathering/manage_gathering/screen/settings/screens/send_message_page.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/push_notification/screen/send_message_page.dart';
 
 class SendNotificationPage extends StatelessWidget {
   const SendNotificationPage({super.key});

@@ -50,7 +50,7 @@ class SettingsPage extends StatelessWidget {
               showModalBottomSheet(
                 useRootNavigator: true,
                 showDragHandle: true,
-                scrollControlDisabledMaxHeightRatio: 0.5,
+                scrollControlDisabledMaxHeightRatio: 0.6,
                 context: context,
                 builder: (context) {
                   return ValueListenableBuilder(
@@ -60,19 +60,19 @@ class SettingsPage extends StatelessWidget {
                         return SizedBox(
                           child: ListView(
                             shrinkWrap: true,
-                            padding: const EdgeInsets.only(left: 15, right: 15),
                             children: [
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10),
                                 child: Text(
                                   "Cancel Gathering",
+                                  textAlign: TextAlign.center,
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 15),
                                 child: Text(
                                   "Are you sure you want to caancel this gathring for ever?",
                                   style:
@@ -100,7 +100,8 @@ class SettingsPage extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.only(
+                                    bottom: 10, left: 15, right: 15),
                                 child: SizedBox(
                                   width: double.infinity,
                                   child: SizedBox(
