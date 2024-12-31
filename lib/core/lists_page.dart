@@ -27,7 +27,7 @@ final List<Widget> icons = [
 final List<String> settingsItems = [
   "Manage Bank Account",
   "Settlement and Refund",
-  "Form Builder",
+  "Registration Form",
   "Terms & Conditions",
   "Push Notifications",
   "Contact Business",

@@ -40,16 +40,24 @@ class _TermsAndConditionPageState extends State<TermsAndConditionPage> {
           "Terms & Conditions",
         ),
         actions: [
-          TextButton.icon(
-            onPressed: () {
-              isFieldSelected();
-            },
-            icon: const Icon(
-              Icons.edit,
-              size: 18,
-            ),
-            label: const Text("Edit"),
-          )
+          ValueListenableBuilder(
+              valueListenable: isSelected,
+              builder: (BuildContext ctx, bool newValue, Widget? _) {
+                return AnimatedOpacity(
+                  opacity: newValue ? 0.3 : 1.0,
+                  duration: const Duration(milliseconds: 300),
+                  child: TextButton.icon(
+                    onPressed: () {
+                      isFieldSelected();
+                    },
+                    icon: const Icon(
+                      Icons.edit,
+                      size: 18,
+                    ),
+                    label: const Text("Edit"),
+                  ),
+                );
+              })
         ],
       ),
       body: ListView(
@@ -72,6 +80,23 @@ class _TermsAndConditionPageState extends State<TermsAndConditionPage> {
                 );
               })
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Align(
+          alignment: Alignment.bottomRight,
+          child: ValueListenableBuilder(
+              valueListenable: isSelected,
+              builder: (BuildContext ctx, bool newValue, Widget? _) {
+                return AnimatedOpacity(
+                  duration: const Duration(milliseconds: 300),
+                  opacity: newValue ? 1.0 : 0.3,
+                  child: FilledButton(
+                    onPressed: () {},
+                    child: const Text("Save"),
+                  ),
+                );
+              }),
+        ),
       ),
     );
   }

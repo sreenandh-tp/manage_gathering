@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/core/lists_page.dart';
+import 'package:manage_gathering/manage_gathering/screen/manage_gathering.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -14,7 +15,15 @@ class SettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ManageGatheringPage(),
+                ));
+          },
+        ),
         title: Text(
           "Settings",
           style: Theme.of(context).textTheme.titleLarge,
@@ -62,11 +71,10 @@ class SettingsPage extends StatelessWidget {
                             shrinkWrap: true,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
+                                padding: const EdgeInsets.only(
+                                    left: 15, right: 15, bottom: 10),
                                 child: Text(
                                   "Cancel Gathering",
-                                  textAlign: TextAlign.center,
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
@@ -101,12 +109,17 @@ class SettingsPage extends StatelessWidget {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    bottom: 10, left: 15, right: 15),
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: AnimatedOpacity(
+                                    bottom: 10, right: 15),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text("Cancel")),
+                                    const SizedBox(width: 15),
+                                    AnimatedOpacity(
                                       opacity:
                                           isConformNotifier.value ? 1.0 : 0.3,
                                       duration:
@@ -116,7 +129,7 @@ class SettingsPage extends StatelessWidget {
                                         child: const Text("Conform"),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               )
                             ],

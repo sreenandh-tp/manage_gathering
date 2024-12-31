@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
 class PreviewPage extends StatelessWidget {
   const PreviewPage({super.key});
@@ -23,7 +22,12 @@ class PreviewPage extends StatelessWidget {
             ),
           ),
 
-          const FormTextFieldWidget(labelText: "", hintText: "Enter your name"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            child: TextFormField(
+              decoration: const InputDecoration(hintText: "Enter your name"),
+            ),
+          ),
 
           // RADIO BUTTON FIELD
           ...List.generate(
@@ -103,7 +107,7 @@ class PreviewPage extends StatelessWidget {
                 ),
                 DropdownButtonFormField(
                   padding: const EdgeInsets.only(right: 15),
-                  onTap: () {},
+                  hint: Text(dropDownItems.first),
                   items: dropDownItems.map(
                     (e) {
                       return DropdownMenuItem(
