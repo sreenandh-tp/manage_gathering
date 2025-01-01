@@ -14,6 +14,26 @@ class ManageGatheringPage extends StatefulWidget {
 }
 
 class _ManageGatheringPageState extends State<ManageGatheringPage> {
+  final ScrollController scrollController = ScrollController();
+  final ValueNotifier<double> scrollNotifier = ValueNotifier<double>(0.0);
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(scrollListener);
+  }
+
+  void scrollListener() {
+    scrollNotifier.value = scrollController.offset;
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    scrollNotifier.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,79 +99,103 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
       ),
       body: Column(
         children: [
-          Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15, left: 18, right: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            "asset/event.jpg",
-                            fit: BoxFit.cover,
+          ValueListenableBuilder(
+              valueListenable: scrollNotifier,
+              builder: (BuildContext ctx, dynamic newValue, Widget? _) {
+                return Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 600),
+                                curve: Curves.linearToEaseOut,
+                                height: newValue < 80 ? 80 : 45,
+                                width: newValue < 80 ? 80 : 45,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    "asset/event.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Join me for a delectable evening!",
+                                      maxLines: newValue < 80 ? 2 : 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    newValue < 80
+                                        ? Text("Starbucks , Trivandrum",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall)
+                                        : const SizedBox(),
+                                    Text("30 May 2024 at 9:00 PM",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall)
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Join me for a delectable evening!",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            const SizedBox(height: 5),
-                            Text("Starbucks , Trivandrum",
-                                style: Theme.of(context).textTheme.titleSmall),
-                            Text("30 May 2024 at 9:00 PM",
-                                style: Theme.of(context).textTheme.titleSmall)
-                          ],
-                        ),
-                      )
-                    ],
+                        newValue < 80
+                            ? const Padding(
+                                padding: EdgeInsets.only(
+                                    left: 15, right: 15, bottom: 15),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GatheringLikesRow(
+                                      count: "25/100",
+                                      gatheringStatus: "Going",
+                                    ),
+                                    GatheringLikesRow(
+                                      count: "120",
+                                      gatheringStatus: "Likes",
+                                    ),
+                                    GatheringLikesRow(
+                                      count: "₹1500",
+                                      gatheringStatus: "Sales",
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 20),
-                  const Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GatheringLikesRow(
-                        count: "25/100",
-                        gatheringStatus: "Going",
-                      ),
-                      SizedBox(width: 30),
-                      GatheringLikesRow(
-                        count: "120",
-                        gatheringStatus: "Likes",
-                      ),
-                      SizedBox(width: 30),
-                      GatheringLikesRow(
-                        count: "₹1500",
-                        gatheringStatus: "Sales",
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20)
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 4),
+                );
+              }),
+          ValueListenableBuilder(
+              valueListenable: scrollNotifier,
+              builder: (BuildContext ctx, double secondValue, Widget? _) {
+                return secondValue < 80
+                    ? const SizedBox(height: 4)
+                    : const SizedBox(height: 2);
+              }),
           Expanded(
             child: Container(
               color: Theme.of(context).scaffoldBackgroundColor,
@@ -186,12 +230,12 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                             text: "Ticket",
                           ),
                         ]),
-                    const Expanded(
+                    Expanded(
                       child: TabBarView(
                         children: [
-                          GuestsPage(),
-                          OrganizerPage(),
-                          TicketPage(),
+                          GuestsPage(scrollController: scrollController),
+                          OrganizerPage(scrollController: scrollController),
+                          TicketPage(scrollController: scrollController),
                         ],
                       ),
                     )

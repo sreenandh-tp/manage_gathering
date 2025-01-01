@@ -80,7 +80,7 @@ class PreviewPage extends StatelessWidget {
                     (index) {
                       return ListTile(
                         contentPadding: const EdgeInsets.only(left: 5),
-                        horizontalTitleGap: 0,
+                        horizontalTitleGap: 10,
                         leading: Checkbox(
                           value: true,
                           onChanged: (value) {},

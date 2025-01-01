@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/manage_gathering/screen/add_organizer/add_organizer_page.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
 
 class OrganizerPage extends StatelessWidget {
-  const OrganizerPage({super.key});
+  final ScrollController scrollController;
+  const OrganizerPage({super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {
+    final dialoge = ShowDialoge();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: ListView(
+        controller: scrollController,
         children: [
           ListView.builder(
             shrinkWrap: true,
@@ -48,30 +52,12 @@ class OrganizerPage extends StatelessWidget {
                     ),
                     PopupMenuItem(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text(
-                                "Remove?",
-                              ),
-                              content: Text(
-                                "Are you sure you want to remove this person?",
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Cancel")),
-                                TextButton(
-                                    onPressed: () {},
-                                    child: const Text("Remove"))
-                              ],
-                            );
-                          },
-                        );
+                        dialoge.showDialoge(
+                            "Remove?",
+                            "Are you sure you want to remove this person?",
+                            context,
+                            TextButton(
+                                onPressed: () {}, child: const Text("Remove")));
                       },
                       child: Text(
                         "Remove",

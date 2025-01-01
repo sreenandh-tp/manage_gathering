@@ -78,21 +78,24 @@ class _TermsAndConditionPageState extends State<TermsAndConditionPage> {
                     ),
                   ),
                 );
-              })
+              }),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
+      bottomSheet: BottomAppBar(
         child: Align(
-          alignment: Alignment.bottomRight,
+          alignment: Alignment.bottomCenter,
           child: ValueListenableBuilder(
               valueListenable: isSelected,
               builder: (BuildContext ctx, bool newValue, Widget? _) {
                 return AnimatedOpacity(
                   duration: const Duration(milliseconds: 300),
                   opacity: newValue ? 1.0 : 0.3,
-                  child: FilledButton(
-                    onPressed: () {},
-                    child: const Text("Save"),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: FilledButton(
+                      onPressed: () {},
+                      child: const Text("Save"),
+                    ),
                   ),
                 );
               }),

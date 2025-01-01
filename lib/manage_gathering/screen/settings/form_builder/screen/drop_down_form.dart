@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
-import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/forms_builder.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
 class DropDownFormPage extends StatefulWidget {
@@ -56,14 +55,8 @@ class _DropDownFormPageState extends State<DropDownFormPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          leading: CloseButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FormsBuilderPage(),
-                  ));
-            },
+          leading: const CloseButton(
+            
           ),
           title: const Text("Dropdown Options"),
           actions: [

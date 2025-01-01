@@ -8,16 +8,17 @@ class TickectWidget extends StatelessWidget {
   final String? strickedPrice;
   final String seatCount;
   final String status;
+  final Widget removeAndStopSellingButton;
 
-  const TickectWidget({
-    super.key,
-    this.rowWidget,
-    required this.ticketType,
-    required this.ticketPrice,
-    this.strickedPrice,
-    required this.seatCount,
-    required this.status,
-  });
+  const TickectWidget(
+      {super.key,
+      this.rowWidget,
+      required this.ticketType,
+      required this.ticketPrice,
+      this.strickedPrice,
+      required this.seatCount,
+      required this.status,
+      required this.removeAndStopSellingButton});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,12 @@ class TickectWidget extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            dense: true,
-            enabled: true,
+            contentPadding: const EdgeInsets.only(
+              right: 0,
+              left: 15,
+            ),
             title: Wrap(
+              spacing: 10,
               children: [
                 Text(
                   ticketType,
@@ -36,7 +40,7 @@ class TickectWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
-                  status,
+                  "($status)",
                   style: Theme.of(context).textTheme.titleSmall?.merge(
                         const TextStyle(color: Colors.red),
                       ),
@@ -44,7 +48,6 @@ class TickectWidget extends StatelessWidget {
               ],
             ),
             trailing: IconButton(
-                padding: const EdgeInsets.only(right: 0, top: 10),
                 alignment: Alignment.topRight,
                 onPressed: () {
                   Navigator.push(
@@ -68,7 +71,7 @@ class TickectWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  strickedPrice!,
+                  "₹ $strickedPrice",
                   style:
                       Theme.of(context).textTheme.labelLarge?.merge(TextStyle(
                             decorationColor:
@@ -97,63 +100,8 @@ class TickectWidget extends StatelessWidget {
               ],
             ),
           ),
-          rowWidget ??
-              const SizedBox(
-                height: 15,
-              ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 15),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       TextButton.icon(
-          //           onPressed: () {
-          //             showDialog(
-          //               context: context,
-          //               builder: (context) {
-          //                 return AlertDialog(
-          //                   title: Text(
-          //                     "Remove",
-          //                     style: Theme.of(context).textTheme.titleMedium,
-          //                   ),
-          //                   content: Text(
-          //                     "Are you sure you want to remove this ticket?",
-          //                     style: Theme.of(context).textTheme.titleSmall,
-          //                   ),
-          //                   actions: [
-          //                     TextButton(
-          //                         onPressed: () {
-          //                           Navigator.pop(context);
-          //                         },
-          //                         child: const Text("Cancel")),
-          //                     TextButton(
-          //                         onPressed: () {}, child: const Text("Remove"))
-          //                   ],
-          //                 );
-          //               },
-          //             );
-          //           },
-          //           label: const Text("Remove")),
-
-          //       // switch button
-          //       Row(
-          //         children: [
-          //           Text(
-          //             "Stop Selling",
-          //             style: Theme.of(context).textTheme.labelMedium,
-          //           ),
-          //           Switch(
-          //             value: false,
-          //             onChanged: (value) {},
-          //           ),
-          //         ],
-          //       )
-          //     ],
-          //   ),
-          // ),
-          const SizedBox(
-            height: 15,
-          ),
+          rowWidget ?? const SizedBox(),
+          removeAndStopSellingButton
         ],
       ),
     );

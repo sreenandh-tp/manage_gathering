@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/core/lists_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/preview_page.dart';
-import 'package:manage_gathering/manage_gathering/screen/settings/settings_page.dart';
 
 class FormsBuilderPage extends StatefulWidget {
   const FormsBuilderPage({super.key});
@@ -11,10 +10,9 @@ class FormsBuilderPage extends StatefulWidget {
 }
 
 class _FormsBuilderPageState extends State<FormsBuilderPage> {
+  final List<int> formList = List<int>.generate(4, (int index) => index);
   @override
   Widget build(BuildContext context) {
-    final List<int> formList = List<int>.generate(4, (int index) => index);
-
     final ValueNotifier<bool> enableSwitchNotifier = ValueNotifier(false);
 
     void isEnable() {
@@ -25,15 +23,7 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          leading: CloseButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsPage(),
-                  ));
-            },
-          ),
+          leading: const CloseButton(),
           title: const Text("Registration Form"),
           actions: [
             TextButton(
@@ -142,7 +132,8 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             onTap: () {
-                              Navigator.pushReplacement(
+                              Navigator.pop(context);
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => formPages[index],

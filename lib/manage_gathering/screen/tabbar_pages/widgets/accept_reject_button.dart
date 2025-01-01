@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
 
 class AcceptOrRejectButton extends StatelessWidget {
   const AcceptOrRejectButton({
@@ -7,6 +8,7 @@ class AcceptOrRejectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dialog = ShowDialoge();
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -19,29 +21,11 @@ class AcceptOrRejectButton extends StatelessWidget {
             padding: const EdgeInsets.all(0),
             color: Theme.of(context).textTheme.labelMedium?.color,
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text(
-                      "Reject?",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    content: Text(
-                      "Are you sure you want to reject this joining request?",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("Cancel")),
-                      TextButton(onPressed: () {}, child: const Text("Reject"))
-                    ],
-                  );
-                },
-              );
+              dialog.showDialoge(
+                  "Reject?",
+                  "Are you sure you want to reject this joining request?",
+                  context,
+                  TextButton(onPressed: () {}, child: const Text("Reject")));
             },
             icon: const Icon(
               Icons.close,

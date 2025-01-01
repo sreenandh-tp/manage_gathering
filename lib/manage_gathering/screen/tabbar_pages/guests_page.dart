@@ -3,12 +3,14 @@ import 'package:manage_gathering/core/lists_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/tabbar_pages/widgets/accept_reject_button.dart';
 
 class GuestsPage extends StatelessWidget {
-  const GuestsPage({super.key});
+  final ScrollController scrollController;
+  const GuestsPage({super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+        controller: scrollController,
         shrinkWrap: true,
         children: [
           SizedBox(
