@@ -1,6 +1,11 @@
 part of 'form_builder_bloc.dart';
 
-@immutable
-sealed class FormBuilderState {}
+class FormBuilderState {
+  final List<SingleLineFormModel> singleLineFormModelList;
 
-final class FormBuilderInitial extends FormBuilderState {}
+  FormBuilderState({required this.singleLineFormModelList});
+}
+
+class FormBuilderInitial extends FormBuilderState {
+  FormBuilderInitial({required super.singleLineFormModelList});
+}

@@ -51,6 +51,9 @@ class _MultipleCheckboxFormPageState extends State<MultipleCheckboxFormPage> {
 
     final dialoge = ShowDialoge();
 
+    final TextEditingController labelController = TextEditingController();
+    final TextEditingController helperTextController = TextEditingController();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -75,7 +78,8 @@ class _MultipleCheckboxFormPageState extends State<MultipleCheckboxFormPage> {
         body: ListView(
           shrinkWrap: true,
           children: [
-            const FormTextFieldWidget(
+             FormTextFieldWidget(
+              controller: labelController,
               labelText: "Label",
               hintText: "Enter label",
             ),
@@ -119,7 +123,8 @@ class _MultipleCheckboxFormPageState extends State<MultipleCheckboxFormPage> {
                 );
               },
             ),
-            const FormTextFieldWidget(
+             FormTextFieldWidget(
+              controller: helperTextController,
                 labelText: "Helper text(Optional)",
                 hintText: "Enter helper text"),
             ValueListenableBuilder(

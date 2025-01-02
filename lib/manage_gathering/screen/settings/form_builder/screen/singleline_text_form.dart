@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manage_gathering/core/lists_page.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class SinglelineTextFormPage extends StatelessWidget {
+class SinglelineTextFormPage extends StatefulWidget {
   const SinglelineTextFormPage({super.key});
+
+  @override
+  State<SinglelineTextFormPage> createState() => _SinglelineTextFormPageState();
+}
+
+class _SinglelineTextFormPageState extends State<SinglelineTextFormPage> {
+  final TextEditingController labelController = TextEditingController();
+  final TextEditingController placeHolderTextController =
+      TextEditingController();
+  final TextEditingController helperTextController = TextEditingController();
+
+  FieldType fieldType = FieldType.text;
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +55,18 @@ class SinglelineTextFormPage extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: [
-            const FormTextFieldWidget(
+            FormTextFieldWidget(
+              controller: labelController,
               labelText: "Label",
               hintText: "Enter label",
             ),
-            const FormTextFieldWidget(
+            FormTextFieldWidget(
+              controller: placeHolderTextController,
               labelText: "Placeholder text (Optional)",
               hintText: "Enter placeholder text",
             ),
-            const FormTextFieldWidget(
+            FormTextFieldWidget(
+              controller: helperTextController,
               labelText: "Helper text (Optional)",
               hintText: "Enter helper text",
             ),
@@ -65,11 +83,18 @@ class SinglelineTextFormPage extends StatelessWidget {
                 spacing: 5,
                 children: [
                   ...List.generate(
-                    singleLineFormType.length,
+                    FieldType.values.length,
+                    // singleLineFormType.length,
                     (index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 5),
-                        child: Chip(
+                        child: FilterChip(
+                          onSelected: (value) {
+                            print(FieldType.text);
+                            fieldType = FieldType.values[index];
+                            setState(() {});
+                          },
+                          selected: fieldType == FieldType.values[index],
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           label: Text(singleLineFormType[index]),
                         ),
@@ -106,7 +131,18 @@ class SinglelineTextFormPage extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  final singleLineForm = SingleLineFormModel(
+                      label: labelController.text,
+                      placeholdertext: placeHolderTextController.text,
+                      helpertext: helperTextController.text,
+                      isSelectedFieldType: [],
+                      isRequired: isSelectedNotifier.value);
+
+                  BlocProvider.of<FormBuilderBloc>(context).add(
+                      AddSingleLineFormEvent(
+                          singleLineFormModel: singleLineForm));
+                },
                 child: const Text("Add"),
               ),
             ),

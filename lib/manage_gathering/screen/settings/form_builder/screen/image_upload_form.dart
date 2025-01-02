@@ -14,6 +14,7 @@ class ImageUploadFormPage extends StatelessWidget {
     }
 
     final dialoge = ShowDialoge();
+    final TextEditingController imageController = TextEditingController();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -39,7 +40,8 @@ class ImageUploadFormPage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            const FormTextFieldWidget(
+             FormTextFieldWidget(
+              controller: imageController,
                 labelText: "Label", hintText: "Enter label"),
             ValueListenableBuilder(
                 valueListenable: isSelectedNotifier,

@@ -14,6 +14,10 @@ class CheckBoxFormPage extends StatelessWidget {
     }
 
     final dialoge = ShowDialoge();
+    final TextEditingController labelController = TextEditingController();
+    final TextEditingController placeHolderTextController =
+        TextEditingController();
+    final TextEditingController helperTextController = TextEditingController();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -40,15 +44,18 @@ class CheckBoxFormPage extends StatelessWidget {
           shrinkWrap: true,
           // padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
           children: [
-            const FormTextFieldWidget(
+            FormTextFieldWidget(
+              controller: labelController,
               labelText: "Label",
               hintText: "Enter label",
             ),
-            const FormTextFieldWidget(
+            FormTextFieldWidget(
+              controller: placeHolderTextController,
               labelText: "Placeholder text (Optional)",
               hintText: "Enter placeholder text",
             ),
-            const FormTextFieldWidget(
+            FormTextFieldWidget(
+              controller: helperTextController,
               labelText: "Helper text (Optional)",
               hintText: "Enter helper text",
             ),

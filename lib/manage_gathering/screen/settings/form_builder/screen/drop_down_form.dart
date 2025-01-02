@@ -49,6 +49,8 @@ class _DropDownFormPageState extends State<DropDownFormPage> {
     }
 
     final dialoge = ShowDialoge();
+    final TextEditingController labelController = TextEditingController();
+    final TextEditingController helperTextController = TextEditingController();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -76,7 +78,8 @@ class _DropDownFormPageState extends State<DropDownFormPage> {
         body: ListView(
           shrinkWrap: true,
           children: [
-            const FormTextFieldWidget(
+             FormTextFieldWidget(
+              controller: labelController,
               labelText: "Label",
               hintText: "Enter label",
             ),
@@ -120,7 +123,8 @@ class _DropDownFormPageState extends State<DropDownFormPage> {
                 );
               },
             ),
-            const FormTextFieldWidget(
+             FormTextFieldWidget(
+              controller: helperTextController,
                 labelText: "Helper text(Optional)",
                 hintText: "Enter helper text"),
             ValueListenableBuilder(

@@ -118,8 +118,8 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 600),
                                 curve: Curves.linearToEaseOut,
-                                height: newValue < 80 ? 80 : 45,
-                                width: newValue < 80 ? 80 : 45,
+                                height: newValue < 50 ? 80 : 45,
+                                width: newValue < 50 ? 80 : 45,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10)),
                                 child: ClipRRect(
@@ -137,13 +137,13 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                                   children: [
                                     Text(
                                       "Join me for a delectable evening!",
-                                      maxLines: newValue < 80 ? 2 : 1,
+                                      maxLines: newValue < 60 ? 2 : 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
                                     ),
-                                    newValue < 80
+                                    newValue < 50
                                         ? Text("Starbucks , Trivandrum",
                                             style: Theme.of(context)
                                                 .textTheme
@@ -159,7 +159,7 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                             ],
                           ),
                         ),
-                        newValue < 80
+                        newValue < 50
                             ? const Padding(
                                 padding: EdgeInsets.only(
                                     left: 15, right: 15, bottom: 15),
@@ -192,7 +192,7 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
           ValueListenableBuilder(
               valueListenable: scrollNotifier,
               builder: (BuildContext ctx, double secondValue, Widget? _) {
-                return secondValue < 80
+                return secondValue < 50
                     ? const SizedBox(height: 4)
                     : const SizedBox(height: 2);
               }),
@@ -230,15 +230,20 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                             text: "Ticket",
                           ),
                         ]),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          GuestsPage(scrollController: scrollController),
-                          OrganizerPage(scrollController: scrollController),
-                          TicketPage(scrollController: scrollController),
-                        ],
-                      ),
-                    )
+                    ValueListenableBuilder(
+                        valueListenable: scrollNotifier,
+                        builder: (context, thirdValue, child) {
+                          return Expanded(
+                            child: TabBarView(
+                              children: [
+                                GuestsPage(scrollController: scrollController),
+                                OrganizerPage(
+                                    scrollController: scrollController),
+                                TicketPage(scrollController: scrollController),
+                              ],
+                            ),
+                          );
+                        })
                   ],
                 ),
               ),

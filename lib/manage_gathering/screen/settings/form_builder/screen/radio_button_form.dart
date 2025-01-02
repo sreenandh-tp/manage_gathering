@@ -50,6 +50,9 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
 
     final dialoge = ShowDialoge();
 
+    final TextEditingController radioLabelController = TextEditingController();
+    final TextEditingController radioHelperTextController = TextEditingController();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -74,7 +77,8 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
         body: ListView(
           shrinkWrap: true,
           children: [
-            const FormTextFieldWidget(
+             FormTextFieldWidget(
+              controller: radioLabelController,
               labelText: "Label",
               hintText: "Enter label",
             ),
@@ -118,7 +122,8 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
                 );
               },
             ),
-            const FormTextFieldWidget(
+             FormTextFieldWidget(
+              controller: radioHelperTextController,
                 labelText: "Helper text(Optional)",
                 hintText: "Enter helper text"),
             ValueListenableBuilder(
