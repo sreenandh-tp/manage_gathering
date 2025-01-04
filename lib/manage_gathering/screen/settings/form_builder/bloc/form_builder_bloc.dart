@@ -22,7 +22,8 @@ class FormBuilderBloc extends Bloc<FormBuilderEvent, FormBuilderState> {
 
     on<SelectedFieldTypeEvent>(
       (event, emit) {
-        emit(FormBuilderState(formList: [], fieldType: event.fieldType));
+        emit(FormBuilderState(
+            formList: state.formList, fieldType: event.fieldType));
       },
     );
 
@@ -34,6 +35,13 @@ class FormBuilderBloc extends Bloc<FormBuilderEvent, FormBuilderState> {
         state.formList.insert(event.newIndex, updatedList);
 
         emit(FormBuilderState(formList: state.formList));
+      },
+    );
+
+    on<AddFormTitleEvent>(
+      (event, emit) {
+        emit(FormBuilderState(
+            formList: state.formList, formTitle: event.formTitle));
       },
     );
   }

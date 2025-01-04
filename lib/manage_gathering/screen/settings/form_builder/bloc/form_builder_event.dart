@@ -21,3 +21,9 @@ class ReOrderableListEvent extends FormBuilderEvent {
 
   ReOrderableListEvent({required this.newIndex, required this.oldIndex});
 }
+
+class AddFormTitleEvent extends FormBuilderEvent {
+  final String formTitle;
+
+  AddFormTitleEvent({required this.formTitle});
+}

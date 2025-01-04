@@ -12,7 +12,7 @@ class PreviewPage extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           leading: const CloseButton(),
-          title: const Text("Form title"),
+          title: const Text("Preview"),
         ),
         body: BlocBuilder<FormBuilderBloc, FormBuilderState>(
           builder: (context, state) {

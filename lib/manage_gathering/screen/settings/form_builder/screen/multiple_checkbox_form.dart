@@ -163,6 +163,7 @@ class MultipleCheckboxFormPage extends StatelessWidget {
                             labelController.text.isNotEmpty) {
                           context.read<FormBuilderBloc>().add(AddFormsEvent(
                               formBuilderModel: multipleCheckBoxForm));
+                                Navigator.pop(context);
                         }
                       },
                       child: const Text("Add"),

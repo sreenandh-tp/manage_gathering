@@ -166,6 +166,7 @@ class RadioButtonFormPage extends StatelessWidget {
                           context
                               .read<FormBuilderBloc>()
                               .add(AddFormsEvent(formBuilderModel: radioForm));
+                                Navigator.pop(context);
                         }
                       },
                       child: const Text("Add"),

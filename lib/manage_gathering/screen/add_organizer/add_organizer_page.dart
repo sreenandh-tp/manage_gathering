@@ -43,7 +43,9 @@ class AddOrganizerPage extends StatelessWidget {
                     ...List.generate(
                       3,
                       (index) {
-                        return Chip(
+                        return FilterChip(
+                          onSelected: (value) {},
+                          selected: false,
                           label: Text(
                             organisers[index],
                             style: Theme.of(context).textTheme.titleSmall,

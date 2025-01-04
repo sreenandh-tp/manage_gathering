@@ -165,6 +165,7 @@ class DropDownFormPage extends StatelessWidget {
                           if (dropDownOptions.isNotEmpty && labelController.text.isNotEmpty) {
                             context.read<FormBuilderBloc>().add(
                                 AddFormsEvent(formBuilderModel: dropDownForm));
+                                  Navigator.pop(context);
                           }
                         },
                         child: const Text("Add"),

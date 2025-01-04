@@ -101,6 +101,7 @@ class MultilineTextFormPage extends StatelessWidget {
                   context
                       .read<FormBuilderBloc>()
                       .add(AddFormsEvent(formBuilderModel: multiLineForm));
+                        Navigator.pop(context);
                 },
                 child: const Text("Add"),
               ),

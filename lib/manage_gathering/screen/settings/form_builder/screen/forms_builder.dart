@@ -13,6 +13,7 @@ class FormsBuilderPage extends StatefulWidget {
 }
 
 class _FormsBuilderPageState extends State<FormsBuilderPage> {
+  final TextEditingController formTitleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<bool> enableSwitchNotifier = ValueNotifier(false);
@@ -51,6 +52,7 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),
                       child: TextFormField(
+                        controller: formTitleController,
                         decoration: const InputDecoration(
                           labelText: "Form title",
                           hintText: "Enter your form title",
@@ -150,6 +152,8 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
             Center(
               child: OutlinedButton.icon(
                 onPressed: () {
+                  context.read<FormBuilderBloc>().add(
+                      AddFormTitleEvent(formTitle: formTitleController.text));
                   showModalBottomSheet(
                     useRootNavigator: true,
                     showDragHandle: true,

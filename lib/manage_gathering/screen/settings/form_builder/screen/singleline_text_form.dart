@@ -134,7 +134,7 @@ class SinglelineTextFormPage extends StatelessWidget {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  final singleForm = FormBuilderModel(
+                  final singleLineForm = FormBuilderModel(
                     formType: FormType.singleLineForm,
                     label: labelController.text,
                     fieldType: selectedType,
@@ -144,7 +144,9 @@ class SinglelineTextFormPage extends StatelessWidget {
                   );
                   context
                       .read<FormBuilderBloc>()
-                      .add(AddFormsEvent(formBuilderModel: singleForm));
+                      .add(AddFormsEvent(formBuilderModel: singleLineForm));
+
+                  Navigator.pop(context);
                 },
                 child: const Text("Add"),
               ),

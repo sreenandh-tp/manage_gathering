@@ -81,6 +81,7 @@ class ImageUploadFormPage extends StatelessWidget {
                   context
                       .read<FormBuilderBloc>()
                       .add(AddFormsEvent(formBuilderModel: imageForm));
+                        Navigator.pop(context);
                 },
                 child: const Text("Add"),
               ),

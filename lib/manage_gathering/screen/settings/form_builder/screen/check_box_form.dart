@@ -100,6 +100,7 @@ class CheckBoxFormPage extends StatelessWidget {
                   context
                       .read<FormBuilderBloc>()
                       .add(AddFormsEvent(formBuilderModel: checkBoxForm));
+                        Navigator.pop(context);
                 },
                 child: const Text("Add"),
               ),
