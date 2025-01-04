@@ -12,7 +12,11 @@ class PreviewPage extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           leading: const CloseButton(),
-          title: const Text("Preview"),
+          title: BlocBuilder<FormBuilderBloc, FormBuilderState>(
+            builder: (context, state) {
+              return Text(state.formTitle ?? "Preview");
+            },
+          ),
         ),
         body: BlocBuilder<FormBuilderBloc, FormBuilderState>(
           builder: (context, state) {
@@ -130,14 +134,32 @@ class PreviewPage extends StatelessWidget {
                                                       Icons.upload_outlined),
                                                 ),
                                               )
-                                            : Center(
-                                                child: Text(
-                                                  "No Foem Added",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium,
-                                                ),
-                                              )
+                                            : formList.formType ==
+                                                    FormType.checkBox
+                                                ? ListTile(
+                                                    horizontalTitleGap: 5,
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            left: 2),
+                                                    leading: Checkbox(
+                                                      value: false,
+                                                      onChanged: (value) {},
+                                                    ),
+                                                    title: Text(
+                                                      formList.placeHolderText!,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                    ),
+                                                  )
+                                                : Center(
+                                                    child: Text(
+                                                      "No Foem Added",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                    ),
+                                                  )
                   ],
                 );
               },

@@ -41,7 +41,7 @@ class AddOrganizerPage extends StatelessWidget {
                   direction: Axis.horizontal,
                   children: [
                     ...List.generate(
-                      3,
+                      organisers.length,
                       (index) {
                         return FilterChip(
                           onSelected: (value) {},

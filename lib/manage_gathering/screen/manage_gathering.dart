@@ -34,7 +34,6 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
   @override
   void dispose() {
     scrollController.dispose();
-
     super.dispose();
   }
 
@@ -201,8 +200,6 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                   children: [
                     TabBar(
                         tabAlignment: TabAlignment.fill,
-
-                        // isScrollable: true,
                         indicatorColor: Colors.deepPurple,
                         indicatorSize: TabBarIndicatorSize.tab,
                         indicatorWeight: 3,

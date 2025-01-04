@@ -96,4 +96,4 @@ final List formPages = [
 
 final List singleLineFormType = ["Text", "Number", "E-mail", "Phone", "Date"];
 
-final List<String> organisers = ["Host","Organiser","Co-Host"];
+final List<String> organisers = ["Host", "Organiser", "Co-Host"];

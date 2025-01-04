@@ -20,7 +20,6 @@ class CheckBoxFormPage extends StatelessWidget {
     final TextEditingController labelController = TextEditingController();
     final TextEditingController placeHolderTextController =
         TextEditingController();
-    final TextEditingController helperTextController = TextEditingController();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -54,13 +53,8 @@ class CheckBoxFormPage extends StatelessWidget {
             ),
             FormTextFieldWidget(
               controller: placeHolderTextController,
-              labelText: "Placeholder text (Optional)",
+              labelText: "Placeholder text",
               hintText: "Enter placeholder text",
-            ),
-            FormTextFieldWidget(
-              controller: helperTextController,
-              labelText: "Helper text (Optional)",
-              hintText: "Enter helper text",
             ),
             ValueListenableBuilder(
                 valueListenable: isSelectedNotifier,
@@ -93,14 +87,13 @@ class CheckBoxFormPage extends StatelessWidget {
                   final checkBoxForm = FormBuilderModel(
                       formType: FormType.checkBox,
                       label: labelController.text,
-                      placeHolderText: helperTextController.text,
-                      helperText: helperTextController.text,
+                      placeHolderText: placeHolderTextController.text,
                       isMadatory: isSelectedNotifier.value);
 
                   context
                       .read<FormBuilderBloc>()
                       .add(AddFormsEvent(formBuilderModel: checkBoxForm));
-                        Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: const Text("Add"),
               ),

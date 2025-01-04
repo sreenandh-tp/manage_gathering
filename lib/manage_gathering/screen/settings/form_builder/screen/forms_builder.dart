@@ -114,7 +114,12 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
                                                           FormType.imageUpload
                                                       ? const Icon(Icons
                                                           .photo_camera_back_outlined)
-                                                      : const SizedBox(),
+                                                      : state.formList[index]
+                                                                  .formType ==
+                                                              FormType.checkBox
+                                                          ? const Icon(Icons
+                                                              .check_box_outlined)
+                                                          : const SizedBox(),
                               title: Text(
                                 state.formList[index].label,
                                 style: Theme.of(context).textTheme.titleMedium,
