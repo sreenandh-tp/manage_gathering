@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
 class CheckBoxFormPage extends StatelessWidget {
@@ -86,7 +89,18 @@ class CheckBoxFormPage extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  final checkBoxForm = FormBuilderModel(
+                      formType: FormType.checkBox,
+                      label: labelController.text,
+                      placeHolderText: helperTextController.text,
+                      helperText: helperTextController.text,
+                      isMadatory: isSelectedNotifier.value);
+
+                  context
+                      .read<FormBuilderBloc>()
+                      .add(AddFormsEvent(formBuilderModel: checkBoxForm));
+                },
                 child: const Text("Add"),
               ),
             ),

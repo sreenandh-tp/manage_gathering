@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
 class MultilineTextFormPage extends StatelessWidget {
@@ -88,7 +90,18 @@ class MultilineTextFormPage extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  final multiLineForm = FormBuilderModel(
+                      formType: FormType.multiLineText,
+                      label: labelController.text,
+                      isMadatory: isSelectedNotifier.value,
+                      placeHolderText: placeHolderTextController.text,
+                      helperText: helperTextController.text);
+
+                  context
+                      .read<FormBuilderBloc>()
+                      .add(AddFormsEvent(formBuilderModel: multiLineForm));
+                },
                 child: const Text("Add"),
               ),
             ),

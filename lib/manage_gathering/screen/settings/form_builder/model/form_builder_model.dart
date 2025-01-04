@@ -27,6 +27,8 @@ class FormBuilderModel {
   FieldType? fieldType = FieldType.text;
   List<String>? radioOption;
   List<String>? checkBoxOption;
+  List<String>? dropDownOption;
+  String? checkBox;
   bool isMadatory;
 
   FormBuilderModel({
@@ -37,6 +39,21 @@ class FormBuilderModel {
     this.fieldType,
     this.radioOption,
     this.checkBoxOption,
+    this.dropDownOption,
+    this.checkBox,
     required this.isMadatory,
   });
+
+  Map<String, dynamic> toJson() => {
+        "formType": formType,
+        "label": label,
+        "placeHolderText": placeHolderText,
+        "helperText": helperText,
+        "fieldType": fieldType,
+        "radioOption": radioOption,
+        "checkBoxOption": checkBoxOption,
+        "dropDownOption": dropDownOption,
+        "checkBox": checkBox,
+        "isMadatory": isMadatory,
+      };
 }

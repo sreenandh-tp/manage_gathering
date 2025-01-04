@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manage_gathering/core/lists_page.dart';
@@ -76,21 +78,32 @@ class SinglelineTextFormPage extends StatelessWidget {
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Wrap(
-                  spacing: 5,
-                  children: [
-                    ...List.generate(FieldType.values.length, (index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: FilterChip(
-                          onSelected: (value) {},
-                          selected: selectedType == FieldType.values[index],
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          label: Text(singleLineFormType[index]),
-                        ),
-                      );
-                    }),
-                  ],
+                child: BlocBuilder<FormBuilderBloc, FormBuilderState>(
+                  builder: (context, state) {
+                    selectedType = state.fieldType ?? FieldType.text;
+                    return Wrap(
+                      spacing: 5,
+                      children: [
+                        ...List.generate(FieldType.values.length, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: FilterChip(
+                              onSelected: (value) {
+                                context.read<FormBuilderBloc>().add(
+                                    SelectedFieldTypeEvent(
+                                        fieldType: FieldType.values[index]));
+                                log(selectedType.toString());
+                              },
+                              selected: selectedType == FieldType.values[index],
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              label: Text(singleLineFormType[index]),
+                            ),
+                          );
+                        }),
+                      ],
+                    );
+                  },
                 )),
             ValueListenableBuilder(
                 valueListenable: isSelectedNotifier,
@@ -103,6 +116,7 @@ class SinglelineTextFormPage extends StatelessWidget {
                       value: newValue,
                       onChanged: (value) {
                         isSelect();
+                        log(isSelectedNotifier.value.toString());
                       },
                     ),
                     title: Text(
@@ -124,7 +138,8 @@ class SinglelineTextFormPage extends StatelessWidget {
                     formType: FormType.singleLineForm,
                     label: labelController.text,
                     fieldType: selectedType,
-                  
+                    placeHolderText: placeHolderTextController.text,
+                    helperText: helperTextController.text,
                     isMadatory: isSelectedNotifier.value,
                   );
                   context

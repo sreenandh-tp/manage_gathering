@@ -1,43 +1,33 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class DropDownFormPage extends StatefulWidget {
-  const DropDownFormPage({super.key});
+class DropDownFormPage extends StatelessWidget {
+  DropDownFormPage({super.key});
 
-  @override
-  State<DropDownFormPage> createState() => _DropDownFormPageState();
-}
+  final ValueNotifier<List<TextEditingController>> controllerListNotifier =
+      ValueNotifier<List<TextEditingController>>([TextEditingController()]);
 
-class _DropDownFormPageState extends State<DropDownFormPage> {
-  final List<TextEditingController> controllers = [];
-
-  @override
-  void initState() {
-    super.initState();
-
-    controllers.add(TextEditingController());
-  }
-
-  @override
-  void dispose() {
-    for (var controller in controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
-  void addField() {
-    setState(() {
-      controllers.insert(0, TextEditingController());
-    });
+  void addNewField() {
+    final currentList =
+        List<TextEditingController>.from(controllerListNotifier.value);
+    currentList.insert(0, TextEditingController());
+    controllerListNotifier.value = currentList;
   }
 
   void removeField(int index) {
-    setState(() {
-      controllers[index].dispose();
-      controllers.removeAt(index);
-    });
+    if (controllerListNotifier.value.length > 1) {
+      final currentList =
+          List<TextEditingController>.from(controllerListNotifier.value);
+      currentList[index].dispose();
+      currentList.removeAt(index);
+      controllerListNotifier.value = currentList;
+    }
   }
 
   @override
@@ -52,14 +42,14 @@ class _DropDownFormPageState extends State<DropDownFormPage> {
     final TextEditingController labelController = TextEditingController();
     final TextEditingController helperTextController = TextEditingController();
 
+    List<TextEditingController> controllerList = [];
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          leading: const CloseButton(
-            
-          ),
+          leading: const CloseButton(),
           title: const Text("Dropdown Options"),
           actions: [
             IconButton(
@@ -78,53 +68,50 @@ class _DropDownFormPageState extends State<DropDownFormPage> {
         body: ListView(
           shrinkWrap: true,
           children: [
-             FormTextFieldWidget(
+            FormTextFieldWidget(
               controller: labelController,
               labelText: "Label",
               hintText: "Enter label",
             ),
-            ListView.builder(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              itemCount: controllers.length,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: controllers[index],
-                        decoration: InputDecoration(
-                          hintText: "Option ${index + 1}",
-                          labelText: "Option ${index + 1}",
-                        ),
-                      ),
-                    ),
-                    controllers.length > 1 && index != controllers.length - 1
-                        ? IconButton(
-                            onPressed: () {
-                              removeField(index);
-                            },
-                            icon: const Icon(
-                              Icons.delete_outline,
-                              size: 18,
-                            ))
-                        : index == controllers.length - 1
-                            ? IconButton(
-                                onPressed: () {
-                                  addField();
-                                },
-                                icon: const Icon(
-                                  Icons.add,
-                                  size: 18,
-                                ))
-                            : const SizedBox()
-                  ],
-                );
-              },
-            ),
-             FormTextFieldWidget(
-              controller: helperTextController,
+            ValueListenableBuilder(
+                valueListenable: controllerListNotifier,
+                builder: (BuildContext ctx,
+                    List<TextEditingController> newControllerList, Widget? _) {
+                  return ListView.builder(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    itemCount: newControllerList.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      controllerList.addAll(newControllerList);
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: newControllerList[index],
+                              decoration: InputDecoration(
+                                hintText: "Option ${index + 1}",
+                                labelText: "Option ${index + 1}",
+                              ),
+                            ),
+                          ),
+                          if (index == newControllerList.length - 1)
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: addNewField,
+                            )
+                          else
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () => removeField(index),
+                            ),
+                        ],
+                      );
+                    },
+                  );
+                }),
+            FormTextFieldWidget(
+                controller: helperTextController,
                 labelText: "Helper text(Optional)",
                 hintText: "Enter helper text"),
             ValueListenableBuilder(
@@ -148,18 +135,45 @@ class _DropDownFormPageState extends State<DropDownFormPage> {
                 }),
           ],
         ),
-        bottomNavigationBar: BottomAppBar(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () {},
-                child: const Text("Add"),
-              ),
-            ),
-          ),
-        ),
+        bottomNavigationBar: Builder(builder: (context) {
+          return ValueListenableBuilder(
+              valueListenable: controllerListNotifier,
+              builder: (BuildContext ctx,
+                  List<TextEditingController> newControllerList, Widget? _) {
+                return BottomAppBar(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        onPressed: () {
+                          List<String> dropDownOptions = [];
+
+                          for (var element in newControllerList) {
+                            dropDownOptions.add(element.text);
+                          }
+
+                          log(newControllerList.toString());
+
+                          final dropDownForm = FormBuilderModel(
+                              formType: FormType.dropDownOptions,
+                              label: labelController.text,
+                              dropDownOption: dropDownOptions,
+                              helperText: helperTextController.text,
+                              isMadatory: isSelectedNotifier.value);
+
+                          if (dropDownOptions.isNotEmpty && labelController.text.isNotEmpty) {
+                            context.read<FormBuilderBloc>().add(
+                                AddFormsEvent(formBuilderModel: dropDownForm));
+                          }
+                        },
+                        child: const Text("Add"),
+                      ),
+                    ),
+                  ),
+                );
+              });
+        }),
       ),
     );
   }

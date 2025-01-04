@@ -151,7 +151,7 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                                           .textTheme
                                           .titleMedium,
                                     ),
-                                    newValue == maxSize
+                                    newValue >= maxSize
                                         ? Text("Starbucks , Trivandrum",
                                             style: Theme.of(context)
                                                 .textTheme
@@ -167,7 +167,7 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                             ],
                           ),
                         ),
-                        newValue == maxSize
+                        newValue >= maxSize
                             ? const Padding(
                                 padding: EdgeInsets.only(
                                     left: 15, right: 15, bottom: 15),

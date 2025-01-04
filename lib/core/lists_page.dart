@@ -87,10 +87,10 @@ final List formItems = [
 final List formPages = [
   const SinglelineTextFormPage(),
   const MultilineTextFormPage(),
-  const RadioButtonFormPage(),
-  const MultipleCheckboxFormPage(),
+  RadioButtonFormPage(),
+  MultipleCheckboxFormPage(),
   const CheckBoxFormPage(),
-  const DropDownFormPage(),
+  DropDownFormPage(),
   const ImageUploadFormPage()
 ];
 

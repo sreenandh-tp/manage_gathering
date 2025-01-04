@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
 class ImageUploadFormPage extends StatelessWidget {
@@ -70,7 +72,16 @@ class ImageUploadFormPage extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  final imageForm = FormBuilderModel(
+                      formType: FormType.imageUpload,
+                      label: imageLabelController.text,
+                      isMadatory: isSelectedNotifier.value);
+
+                  context
+                      .read<FormBuilderBloc>()
+                      .add(AddFormsEvent(formBuilderModel: imageForm));
+                },
                 child: const Text("Add"),
               ),
             ),

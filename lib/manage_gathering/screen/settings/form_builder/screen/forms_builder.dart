@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manage_gathering/core/lists_page.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/preview_page.dart';
 
 class FormsBuilderPage extends StatefulWidget {
@@ -10,7 +13,7 @@ class FormsBuilderPage extends StatefulWidget {
 }
 
 class _FormsBuilderPageState extends State<FormsBuilderPage> {
-  final List<int> formList = List<int>.generate(4, (int index) => index);
+  // final List<int> formList = List<int>.generate(4, (int index) => index);
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<bool> enableSwitchNotifier = ValueNotifier(false);
@@ -77,40 +80,69 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
                             ),
                           );
                         }),
-                    ReorderableListView.builder(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          key: Key("$index"),
-                          contentPadding:
-                              const EdgeInsets.only(left: 5, bottom: 10),
-                          leading: const Icon(Icons.check_circle_outline),
-                          title: Text(
-                            "How did you hear about this event?${formList[index]}",
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          subtitle: Text(
-                            "Radio Button",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.edit,
-                                size: 18,
-                              )),
-                        );
-                      },
-                      itemCount: formList.length,
-                      onReorder: (oldIndex, newIndex) {
-                        setState(() {
-                          if (oldIndex < newIndex) {
-                            newIndex -= 1;
-                          }
+                    BlocBuilder<FormBuilderBloc, FormBuilderState>(
+                      builder: (context, state) {
+                        return ReorderableListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              key: Key("$index"),
+                              contentPadding:
+                                  const EdgeInsets.only(left: 5, bottom: 10),
+                              leading: state.formList[index].formType ==
+                                      FormType.singleLineForm
+                                  ? const Icon(Icons.abc)
+                                  : state.formList[index].formType ==
+                                          FormType.multiLineText
+                                      ? const Icon(Icons.menu)
+                                      : state.formList[index].formType ==
+                                              FormType.radioOptions
+                                          ? const Icon(
+                                              Icons.check_circle_outline)
+                                          : state.formList[index].formType ==
+                                                  FormType.multipleCheckBox
+                                              ? const Icon(
+                                                  Icons.check_box_outlined)
+                                              : state.formList[index]
+                                                          .formType ==
+                                                      FormType.dropDownOptions
+                                                  ? const Icon(Icons
+                                                      .arrow_drop_down_circle_outlined)
+                                                  : state.formList[index]
+                                                              .formType ==
+                                                          FormType.imageUpload
+                                                      ? const Icon(Icons
+                                                          .photo_camera_back_outlined)
+                                                      : const SizedBox(),
+                              title: Text(
+                                state.formList[index].label,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              subtitle: Text(
+                                state.formList[index].formType.name
+                                    .toLowerCase(),
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                              trailing: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    size: 18,
+                                  )),
+                            );
+                          },
+                          itemCount: state.formList.length,
+                          onReorder: (oldIndex, newIndex) {
+                            setState(() {
+                              if (oldIndex < newIndex) {
+                                newIndex -= 1;
+                              }
 
-                          final int item = formList.removeAt(oldIndex);
-                          formList.insert(newIndex, item);
-                        });
+                              var item = state.formList.removeAt(oldIndex);
+                              state.formList.insert(newIndex, item);
+                            });
+                          },
+                        );
                       },
                     ),
                   ],

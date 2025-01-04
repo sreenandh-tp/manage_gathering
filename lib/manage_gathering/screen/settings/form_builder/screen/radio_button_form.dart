@@ -1,48 +1,38 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class RadioButtonFormPage extends StatefulWidget {
-  const RadioButtonFormPage({super.key});
+import '../model/form_builder_model.dart';
 
-  @override
-  State<RadioButtonFormPage> createState() => _RadioButtonFormPageState();
-}
+class RadioButtonFormPage extends StatelessWidget {
+  RadioButtonFormPage({super.key});
 
-class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
-  final List<TextEditingController> controllers = [];
+  final ValueNotifier<List<TextEditingController>> controllerListNotifier =
+      ValueNotifier<List<TextEditingController>>([TextEditingController()]);
 
-  @override
-  void initState() {
-    super.initState();
-
-    controllers.add(TextEditingController());
-  }
-
-  @override
-  void dispose() {
-    for (var controller in controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
-  void addField() {
-    setState(() {
-      controllers.insert(0, TextEditingController());
-    });
+  void addNewField() {
+    final currentList =
+        List<TextEditingController>.from(controllerListNotifier.value);
+    currentList.insert(0, TextEditingController());
+    controllerListNotifier.value = currentList;
   }
 
   void removeField(int index) {
-    setState(() {
-      controllers[index].dispose();
-      controllers.removeAt(index);
-    });
+    if (controllerListNotifier.value.length > 1) {
+      final currentList =
+          List<TextEditingController>.from(controllerListNotifier.value);
+      currentList[index].dispose();
+      currentList.removeAt(index);
+      controllerListNotifier.value = currentList;
+    }
   }
 
   final TextEditingController radioLabelController = TextEditingController();
+
   final TextEditingController radioHelperTextController =
       TextEditingController();
 
@@ -85,47 +75,43 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
               labelText: "Label",
               hintText: "Enter label",
             ),
-            ListView.builder(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              itemCount: controllers.length,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                log(controllers[index].text);
-                return Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: controllers[index],
-                        decoration: InputDecoration(
-                          hintText: "Option ${index + 1}",
-                          labelText: "Option ${index + 1}",
-                        ),
-                      ),
-                    ),
-                    controllers.length > 1 && index != controllers.length - 1
-                        ? IconButton(
-                            onPressed: () {
-                              removeField(index);
-                            },
-                            icon: const Icon(
-                              Icons.delete_outline,
-                              size: 18,
-                            ))
-                        : index == controllers.length - 1
-                            ? IconButton(
-                                onPressed: () {
-                                  addField();
-                                },
-                                icon: const Icon(
-                                  Icons.add,
-                                  size: 18,
-                                ))
-                            : const SizedBox()
-                  ],
-                );
-              },
-            ),
+            ValueListenableBuilder(
+                valueListenable: controllerListNotifier,
+                builder: (BuildContext ctx,
+                    List<TextEditingController> newControllerList, Widget? _) {
+                  return ListView.builder(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    itemCount: newControllerList.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      log(newControllerList[index].text);
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: newControllerList[index],
+                              decoration: InputDecoration(
+                                hintText: "Option ${index + 1}",
+                                labelText: "Option ${index + 1}",
+                              ),
+                            ),
+                          ),
+                          if (index == newControllerList.length - 1)
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: addNewField,
+                            )
+                          else
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () => removeField(index),
+                            ),
+                        ],
+                      );
+                    },
+                  );
+                }),
             FormTextFieldWidget(
                 controller: radioHelperTextController,
                 labelText: "Helper text(Optional)",
@@ -151,20 +137,43 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
                 }),
           ],
         ),
-        bottomNavigationBar: BottomAppBar(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () {
-                  log(controllers[0].text);
-                },
-                child: const Text("Add"),
-              ),
-            ),
-          ),
-        ),
+        bottomNavigationBar: ValueListenableBuilder(
+            valueListenable: controllerListNotifier,
+            builder: (BuildContext ctx,
+                List<TextEditingController> newControllerList, Widget? _) {
+              return BottomAppBar(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: FilledButton(
+                      onPressed: () {
+                        List<String> radioOptionsList = [];
+
+                        for (var element in newControllerList) {
+                          radioOptionsList.add(element.text);
+                        }
+
+                        final radioForm = FormBuilderModel(
+                            formType: FormType.radioOptions,
+                            label: radioLabelController.text,
+                            radioOption: radioOptionsList,
+                            helperText: radioHelperTextController.text,
+                            isMadatory: isSelectedNotifier.value);
+
+                        if (radioOptionsList.isNotEmpty &&
+                            radioLabelController.text.isNotEmpty) {
+                          context
+                              .read<FormBuilderBloc>()
+                              .add(AddFormsEvent(formBuilderModel: radioForm));
+                        }
+                      },
+                      child: const Text("Add"),
+                    ),
+                  ),
+                ),
+              );
+            }),
       ),
     );
   }

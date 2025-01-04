@@ -8,3 +8,9 @@ class AddFormsEvent extends FormBuilderEvent {
 
   AddFormsEvent({required this.formBuilderModel});
 }
+
+class SelectedFieldTypeEvent extends FormBuilderEvent {
+  final FieldType fieldType;
+
+  SelectedFieldTypeEvent({required this.fieldType});
+}

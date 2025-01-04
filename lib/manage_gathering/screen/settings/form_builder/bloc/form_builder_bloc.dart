@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../model/form_builder_model.dart';
@@ -9,7 +11,19 @@ class FormBuilderBloc extends Bloc<FormBuilderEvent, FormBuilderState> {
     on<AddFormsEvent>((event, emit) {
       state.formList.add(event.formBuilderModel);
 
+      log(state.formList.map(
+        (e) {
+          return e.toJson();
+        },
+      ).toString());
+
       emit(FormBuilderState(formList: state.formList));
     });
+
+    on<SelectedFieldTypeEvent>(
+      (event, emit) {
+        emit(FormBuilderState(formList: [], fieldType: event.fieldType));
+      },
+    );
   }
 }
