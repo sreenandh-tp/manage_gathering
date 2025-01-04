@@ -25,5 +25,16 @@ class FormBuilderBloc extends Bloc<FormBuilderEvent, FormBuilderState> {
         emit(FormBuilderState(formList: [], fieldType: event.fieldType));
       },
     );
+
+    on<ReOrderableListEvent>(
+      (event, emit) {
+        final FormBuilderModel updatedList =
+            state.formList.removeAt(event.oldIndex);
+
+        state.formList.insert(event.newIndex, updatedList);
+
+        emit(FormBuilderState(formList: state.formList));
+      },
+    );
   }
 }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:manage_gathering/manage_gathering/screen/add_organizer/add_organizer_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
 
-class OrganizerPage extends StatelessWidget {
+class OrganiserPage extends StatelessWidget {
   final ScrollController scrollController;
-  const OrganizerPage({super.key, required this.scrollController});
+  const OrganiserPage({super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {

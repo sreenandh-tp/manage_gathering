@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manage_gathering/core/lists_page.dart';
 
 class AddOrganizerPage extends StatelessWidget {
   const AddOrganizerPage({super.key});
@@ -26,29 +27,32 @@ class AddOrganizerPage extends StatelessWidget {
                   hintText: 'Enter organizer',
                 ),
               ),
-              const SizedBox(height: 15),
-              Text(
-                "Assign Role",
-                style: Theme.of(context).textTheme.titleMedium,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, top: 15),
+                child: Text(
+                  "Assign Role",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
-              const SizedBox(height: 12),
-              Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  Chip(
-                    label: Text(
-                      "Co-host",
-                      style: Theme.of(context).textTheme.titleSmall,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Wrap(
+                  spacing: 8,
+                  direction: Axis.horizontal,
+                  children: [
+                    ...List.generate(
+                      3,
+                      (index) {
+                        return Chip(
+                          label: Text(
+                            organisers[index],
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Chip(
-                    label: Text(
-                      "Crew",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  )
-                ],
+                  ],
+                ),
               )
             ],
           ),

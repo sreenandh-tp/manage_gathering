@@ -13,7 +13,6 @@ class FormsBuilderPage extends StatefulWidget {
 }
 
 class _FormsBuilderPageState extends State<FormsBuilderPage> {
-  // final List<int> formList = List<int>.generate(4, (int index) => index);
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<bool> enableSwitchNotifier = ValueNotifier(false);
@@ -86,7 +85,7 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              key: Key("$index"),
+                              key: ValueKey(state.formList[index]),
                               contentPadding:
                                   const EdgeInsets.only(left: 5, bottom: 10),
                               leading: state.formList[index].formType ==
@@ -133,14 +132,13 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
                           },
                           itemCount: state.formList.length,
                           onReorder: (oldIndex, newIndex) {
-                            setState(() {
-                              if (oldIndex < newIndex) {
-                                newIndex -= 1;
-                              }
+                            if (oldIndex < newIndex) {
+                              newIndex -= 1;
+                            }
 
-                              var item = state.formList.removeAt(oldIndex);
-                              state.formList.insert(newIndex, item);
-                            });
+                            context.read<FormBuilderBloc>().add(
+                                ReOrderableListEvent(
+                                    newIndex: newIndex, oldIndex: oldIndex));
                           },
                         );
                       },

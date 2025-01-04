@@ -14,3 +14,10 @@ class SelectedFieldTypeEvent extends FormBuilderEvent {
 
   SelectedFieldTypeEvent({required this.fieldType});
 }
+
+class ReOrderableListEvent extends FormBuilderEvent {
+  final int newIndex;
+  final int oldIndex;
+
+  ReOrderableListEvent({required this.newIndex, required this.oldIndex});
+}
