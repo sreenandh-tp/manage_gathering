@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
+
 
 class PreviewPage extends StatelessWidget {
   const PreviewPage({super.key});
@@ -11,18 +8,18 @@ class PreviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var dropDownItems = ["Vegitarian", "non-Veg"];
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: const CloseButton(),
         title: const Text("Form title"),
       ),
-      body: BlocBuilder<FormBuilderBloc, FormBuilderState>(
-        builder: (context, state) {
-          log(state.singleLineFormModelList.length.toString());
-          return ListView(
+      body:ListView(
+            padding: const EdgeInsets.only(bottom: 10),
             children: [
+              
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: state.singleLineFormModelList.length,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +28,7 @@ class PreviewPage extends StatelessWidget {
                         padding:
                             const EdgeInsets.only(left: 15, right: 5, top: 10),
                         child: Text(
-                          state.singleLineFormModelList[index].label,
+                         "Name",
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
@@ -39,11 +36,45 @@ class PreviewPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 5),
                         child: TextFormField(
-                          decoration: InputDecoration(
-                            hintText: state
-                                .singleLineFormModelList[index].placeholdertext,
+                          decoration: const InputDecoration(
+                            hintText:
+                                "Enter your name",
                             helperText:
-                                state.singleLineFormModelList[index].helpertext,
+                                "This field is mandatory",
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              //MULTILINE TEXT FIELD
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 15, right: 5, top: 10),
+                        child: Text(
+                          "Address",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
+                        child: TextFormField(
+                          minLines: 1,
+                          maxLines: 50,
+                          decoration: const InputDecoration(
+                            hintText:
+                               "Enter your address",
+                            helperText:
+                                "This field is mandatory",
                           ),
                         ),
                       ),
@@ -118,39 +149,69 @@ class PreviewPage extends StatelessWidget {
               ),
               // DROP DOWN
 
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15, right: 5, top: 10, bottom: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "What is your dietary preference?",
-                      style: Theme.of(context).textTheme.titleMedium,
+              ...List.generate(
+                1,
+                (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 5, top: 10, bottom: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "What is your dietary preference?",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        DropdownButtonFormField(
+                          padding: const EdgeInsets.only(right: 15),
+                          hint: Text(dropDownItems.first),
+                          items: dropDownItems.map(
+                            (e) {
+                              return DropdownMenuItem(
+                                value: e,
+                                child: Text(
+                                  e,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (value) {},
+                        )
+                      ],
                     ),
-                    DropdownButtonFormField(
-                      padding: const EdgeInsets.only(right: 15),
-                      hint: Text(dropDownItems.first),
-                      items: dropDownItems.map(
-                        (e) {
-                          return DropdownMenuItem(
-                            value: e,
-                            child: Text(
-                              e,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (value) {},
-                    )
-                  ],
-                ),
+                  );
+                },
               ),
+
+              ...List.generate(
+               1,
+                (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 5, top: 15, bottom: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                         "Upload Image",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 15),
+                        FilledButton.icon(
+                          onPressed: () {},
+                          label: const Text("Upload Image"),
+                          icon: const Icon(Icons.upload_outlined),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              )
             ],
-          );
-        },
-      ),
+          )
     );
   }
 }

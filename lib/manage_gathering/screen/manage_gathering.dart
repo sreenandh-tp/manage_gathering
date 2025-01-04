@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/manage_gathering/screen/manage_gathering_options/invite_guest_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/settings_page.dart';
@@ -15,16 +17,24 @@ class ManageGatheringPage extends StatefulWidget {
 
 class _ManageGatheringPageState extends State<ManageGatheringPage> {
   final ScrollController scrollController = ScrollController();
-  final ValueNotifier<double> scrollNotifier = ValueNotifier<double>(0.0);
+  final ValueNotifier<double> scrollNotifier = ValueNotifier<double>(maxSize);
+
+  static double maxSize = 65.0;
+  static double minSize = 45.0;
 
   @override
   void initState() {
     super.initState();
+
     scrollController.addListener(scrollListener);
   }
 
   void scrollListener() {
-    scrollNotifier.value = scrollController.offset;
+    final double offsetValue = scrollController.offset;
+    if (scrollNotifier.value != offsetValue) {
+      scrollNotifier.value = (maxSize - offsetValue).clamp(minSize, maxSize);
+      log(scrollNotifier.value.toString());
+    }
   }
 
   @override
@@ -116,10 +126,10 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AnimatedContainer(
-                                duration: const Duration(milliseconds: 600),
+                                duration: const Duration(milliseconds: 700),
                                 curve: Curves.linearToEaseOut,
-                                height: newValue < 50 ? 80 : 45,
-                                width: newValue < 50 ? 80 : 45,
+                                height: newValue,
+                                width: newValue,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10)),
                                 child: ClipRRect(
@@ -137,13 +147,11 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                                   children: [
                                     Text(
                                       "Join me for a delectable evening!",
-                                      maxLines: newValue < 60 ? 2 : 1,
-                                      overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
                                     ),
-                                    newValue < 50
+                                    newValue == maxSize
                                         ? Text("Starbucks , Trivandrum",
                                             style: Theme.of(context)
                                                 .textTheme
@@ -159,7 +167,7 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                             ],
                           ),
                         ),
-                        newValue < 50
+                        newValue == maxSize
                             ? const Padding(
                                 padding: EdgeInsets.only(
                                     left: 15, right: 15, bottom: 15),
@@ -183,19 +191,13 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                                   ],
                                 ),
                               )
-                            : const SizedBox(),
+                            : const SizedBox()
                       ],
                     ),
                   ),
                 );
               }),
-          ValueListenableBuilder(
-              valueListenable: scrollNotifier,
-              builder: (BuildContext ctx, double secondValue, Widget? _) {
-                return secondValue < 50
-                    ? const SizedBox(height: 4)
-                    : const SizedBox(height: 2);
-              }),
+          const SizedBox(height: 4),
           Expanded(
             child: Container(
               color: Theme.of(context).scaffoldBackgroundColor,
@@ -230,20 +232,15 @@ class _ManageGatheringPageState extends State<ManageGatheringPage> {
                             text: "Ticket",
                           ),
                         ]),
-                    ValueListenableBuilder(
-                        valueListenable: scrollNotifier,
-                        builder: (context, thirdValue, child) {
-                          return Expanded(
-                            child: TabBarView(
-                              children: [
-                                GuestsPage(scrollController: scrollController),
-                                OrganizerPage(
-                                    scrollController: scrollController),
-                                TicketPage(scrollController: scrollController),
-                              ],
-                            ),
-                          );
-                        })
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          GuestsPage(scrollController: scrollController),
+                          OrganizerPage(scrollController: scrollController),
+                          TicketPage(scrollController: scrollController),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

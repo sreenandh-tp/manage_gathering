@@ -1,11 +1,11 @@
 part of 'form_builder_bloc.dart';
 
 class FormBuilderState {
-  final List<SingleLineFormModel> singleLineFormModelList;
+  final List<FormBuilderModel> formList;
 
-  FormBuilderState({required this.singleLineFormModelList});
+  FormBuilderState({required this.formList});
 }
 
-class FormBuilderInitial extends FormBuilderState {
-  FormBuilderInitial({required super.singleLineFormModelList});
+ class FormBuilderInitial extends FormBuilderState {
+  FormBuilderInitial({required super.formList});
 }

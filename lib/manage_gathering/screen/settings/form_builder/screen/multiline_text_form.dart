@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
@@ -16,7 +17,8 @@ class MultilineTextFormPage extends StatelessWidget {
     final dialoge = ShowDialoge();
 
     final TextEditingController labelController = TextEditingController();
-    final TextEditingController placeHolderTextController = TextEditingController();
+    final TextEditingController placeHolderTextController =
+        TextEditingController();
     final TextEditingController helperTextController = TextEditingController();
 
     return GestureDetector(
@@ -24,9 +26,7 @@ class MultilineTextFormPage extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          leading: const CloseButton(
-           
-          ),
+          leading: const CloseButton(),
           title: const Text("Multiline Text"),
           actions: [
             IconButton(
@@ -46,17 +46,17 @@ class MultilineTextFormPage extends StatelessWidget {
           shrinkWrap: true,
           // padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
           children: [
-             FormTextFieldWidget(
+            FormTextFieldWidget(
               controller: labelController,
               labelText: "Label",
               hintText: "Enter label",
             ),
-             FormTextFieldWidget(
+            FormTextFieldWidget(
               controller: placeHolderTextController,
               labelText: "Placeholder text (Optional)",
               hintText: "Enter placeholder text",
             ),
-             FormTextFieldWidget(
+            FormTextFieldWidget(
               controller: helperTextController,
               labelText: "Helper text (Optional)",
               hintText: "Enter helper text",

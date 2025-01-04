@@ -1,31 +1,42 @@
-enum FormType { singleLineForm, b, c, d, e, f, g }
+enum FormType {
+  singleLineForm,
+  multiLineText,
+  radioOptions,
+  multipleCheckBox,
+  checkBox,
+  dropDownOptions,
+  imageUpload,
+}
 
 enum FieldType {
   text(1),
-  n(2),
-  c(3),
-  d(4),
-  e(5);
+  number(2),
+  email(3),
+  phone(4),
+  date(5);
 
   const FieldType(this.value);
   final int value;
 }
 
-class SingleLineFormModel {
-  FormType type = FormType.singleLineForm;
+class FormBuilderModel {
+  FormType formType;
   String label;
-  String? placeholdertext;
-  String? helpertext;
-  List<bool> isSelectedFieldType = [true, false, false, false, false];
-  bool isRequired = false;
+  String? placeHolderText;
+  String? helperText;
+  FieldType? fieldType = FieldType.text;
+  List<String>? radioOption;
+  List<String>? checkBoxOption;
+  bool isMadatory;
 
-  SingleLineFormModel({
+  FormBuilderModel({
+    required this.formType,
     required this.label,
-    this.placeholdertext,
-    this.helpertext,
-    required this.isSelectedFieldType,
-    required this.isRequired,
+    this.placeHolderText,
+    this.helperText,
+    this.fieldType,
+    this.radioOption,
+    this.checkBoxOption,
+    required this.isMadatory,
   });
 }
-
-Map<String, dynamic> fieldType = {};

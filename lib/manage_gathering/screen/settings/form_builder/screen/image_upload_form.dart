@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
@@ -14,15 +15,13 @@ class ImageUploadFormPage extends StatelessWidget {
     }
 
     final dialoge = ShowDialoge();
-    final TextEditingController imageController = TextEditingController();
+    final TextEditingController imageLabelController = TextEditingController();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          leading: const CloseButton(
-            
-          ),
+          leading: const CloseButton(),
           title: const Text("Image Upload"),
           actions: [
             IconButton(
@@ -40,9 +39,10 @@ class ImageUploadFormPage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-             FormTextFieldWidget(
-              controller: imageController,
-                labelText: "Label", hintText: "Enter label"),
+            FormTextFieldWidget(
+                controller: imageLabelController,
+                labelText: "Label",
+                hintText: "Enter label"),
             ValueListenableBuilder(
                 valueListenable: isSelectedNotifier,
                 builder: (BuildContext ctx, bool newValue, Widget? _) {
@@ -63,6 +63,18 @@ class ImageUploadFormPage extends StatelessWidget {
                   );
                 }),
           ],
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () {},
+                child: const Text("Add"),
+              ),
+            ),
+          ),
         ),
       ),
     );

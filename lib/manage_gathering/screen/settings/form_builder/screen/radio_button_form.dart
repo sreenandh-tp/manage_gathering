@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/function/show_dialoge.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
@@ -40,6 +42,10 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
     });
   }
 
+  final TextEditingController radioLabelController = TextEditingController();
+  final TextEditingController radioHelperTextController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<bool> isSelectedNotifier = ValueNotifier(false);
@@ -49,9 +55,6 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
     }
 
     final dialoge = ShowDialoge();
-
-    final TextEditingController radioLabelController = TextEditingController();
-    final TextEditingController radioHelperTextController = TextEditingController();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -77,7 +80,7 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
         body: ListView(
           shrinkWrap: true,
           children: [
-             FormTextFieldWidget(
+            FormTextFieldWidget(
               controller: radioLabelController,
               labelText: "Label",
               hintText: "Enter label",
@@ -88,6 +91,7 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                log(controllers[index].text);
                 return Row(
                   children: [
                     Expanded(
@@ -122,8 +126,8 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
                 );
               },
             ),
-             FormTextFieldWidget(
-              controller: radioHelperTextController,
+            FormTextFieldWidget(
+                controller: radioHelperTextController,
                 labelText: "Helper text(Optional)",
                 hintText: "Enter helper text"),
             ValueListenableBuilder(
@@ -153,7 +157,9 @@ class _RadioButtonFormPageState extends State<RadioButtonFormPage> {
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  log(controllers[0].text);
+                },
                 child: const Text("Add"),
               ),
             ),

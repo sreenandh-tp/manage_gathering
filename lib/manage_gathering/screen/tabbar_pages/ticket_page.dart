@@ -90,7 +90,8 @@ class TicketPage extends StatelessWidget {
             },
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding:
+                const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 10),
             child: SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(

@@ -3,6 +3,7 @@ import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/s
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/multiline_text_form.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/radio_button_form.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/singleline_text_form.dart';
+import 'package:manage_gathering/manage_gathering/screen/settings/screens/gathering_visibility.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/screens/manage_bank_account.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/push_notification/screen/send_notification_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/screens/settlement_and_refund.dart';
@@ -22,6 +23,7 @@ final List<Widget> icons = [
   const Icon(Icons.call),
   const Icon(Icons.location_on_outlined),
   const Icon(Icons.person),
+  const Icon(Icons.visibility_rounded),
 ];
 
 final List<String> settingsItems = [
@@ -33,6 +35,7 @@ final List<String> settingsItems = [
   "Contact Business",
   "Location Information",
   "Export Guest Details",
+  "Gathering Visibility",
 ];
 
 final List<String> guestFiltters = [
@@ -50,6 +53,7 @@ List pagesRoute = [
   const FormsBuilderPage(),
   const TermsAndConditionPage(),
   const SendNotificationPage(),
+  GatheringVisibilityPage(),
 ];
 
 const String dummyTermsAndConditions = """Key Takeaways

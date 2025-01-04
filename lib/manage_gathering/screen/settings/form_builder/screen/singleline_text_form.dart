@@ -6,23 +6,20 @@ import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/f
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class SinglelineTextFormPage extends StatefulWidget {
+class SinglelineTextFormPage extends StatelessWidget {
   const SinglelineTextFormPage({super.key});
 
   @override
-  State<SinglelineTextFormPage> createState() => _SinglelineTextFormPageState();
-}
-
-class _SinglelineTextFormPageState extends State<SinglelineTextFormPage> {
-  final TextEditingController labelController = TextEditingController();
-  final TextEditingController placeHolderTextController =
-      TextEditingController();
-  final TextEditingController helperTextController = TextEditingController();
-
-  FieldType fieldType = FieldType.text;
-
-  @override
   Widget build(BuildContext context) {
+    final TextEditingController labelController = TextEditingController();
+
+    final TextEditingController placeHolderTextController =
+        TextEditingController();
+
+    final TextEditingController helperTextController = TextEditingController();
+
+    FieldType selectedType = FieldType.text;
+
     final ValueNotifier<bool> isSelectedNotifier = ValueNotifier(false);
 
     void isSelect() {
@@ -78,32 +75,23 @@ class _SinglelineTextFormPageState extends State<SinglelineTextFormPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Wrap(
-                spacing: 5,
-                children: [
-                  ...List.generate(
-                    FieldType.values.length,
-                    // singleLineFormType.length,
-                    (index) {
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Wrap(
+                  spacing: 5,
+                  children: [
+                    ...List.generate(FieldType.values.length, (index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: FilterChip(
-                          onSelected: (value) {
-                            print(FieldType.text);
-                            fieldType = FieldType.values[index];
-                            setState(() {});
-                          },
-                          selected: fieldType == FieldType.values[index],
+                          onSelected: (value) {},
+                          selected: selectedType == FieldType.values[index],
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           label: Text(singleLineFormType[index]),
                         ),
                       );
-                    },
-                  ),
-                ],
-              ),
-            ),
+                    }),
+                  ],
+                )),
             ValueListenableBuilder(
                 valueListenable: isSelectedNotifier,
                 builder: (BuildContext ctx, bool newValue, Widget? _) {
@@ -132,16 +120,16 @@ class _SinglelineTextFormPageState extends State<SinglelineTextFormPage> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  final singleLineForm = SingleLineFormModel(
-                      label: labelController.text,
-                      placeholdertext: placeHolderTextController.text,
-                      helpertext: helperTextController.text,
-                      isSelectedFieldType: [],
-                      isRequired: isSelectedNotifier.value);
-
-                  BlocProvider.of<FormBuilderBloc>(context).add(
-                      AddSingleLineFormEvent(
-                          singleLineFormModel: singleLineForm));
+                  final singleForm = FormBuilderModel(
+                    formType: FormType.singleLineForm,
+                    label: labelController.text,
+                    fieldType: selectedType,
+                  
+                    isMadatory: isSelectedNotifier.value,
+                  );
+                  context
+                      .read<FormBuilderBloc>()
+                      .add(AddFormsEvent(formBuilderModel: singleForm));
                 },
                 child: const Text("Add"),
               ),
