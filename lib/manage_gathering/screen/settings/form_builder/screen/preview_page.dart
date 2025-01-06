@@ -21,6 +21,7 @@ class PreviewPage extends StatelessWidget {
         body: BlocBuilder<FormBuilderBloc, FormBuilderState>(
           builder: (context, state) {
             return ListView.builder(
+              padding: const EdgeInsets.only(bottom: 15),
               shrinkWrap: true,
               itemCount: state.formList.length,
               itemBuilder: (context, index) {
@@ -65,6 +66,8 @@ class PreviewPage extends StatelessWidget {
                                 ? ListView.builder(
                                     itemCount: formList.radioOption!.length,
                                     shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       return RadioListTile(
                                         contentPadding:
@@ -81,6 +84,8 @@ class PreviewPage extends StatelessWidget {
                                     ? ListView.builder(
                                         itemCount:
                                             formList.checkBoxOption!.length,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
                                           return ListTile(

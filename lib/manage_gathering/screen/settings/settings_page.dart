@@ -25,6 +25,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(
             child: ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(), 
               itemCount: settingsItems.length,
               itemBuilder: (context, index) {
                 return ListTile(
