@@ -16,7 +16,7 @@ class ImageUploadFormPage extends StatelessWidget {
       isSelectedNotifier.value = !isSelectedNotifier.value;
     }
 
-    final dialoge = ShowDialoge();
+ 
     final TextEditingController imageLabelController = TextEditingController();
 
     return GestureDetector(
@@ -28,7 +28,7 @@ class ImageUploadFormPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                dialoge.showDialoge(
+                ShowDialoge().showDialoge(
                   "Delete",
                   "Are you sure? you want to delete this field",
                   context,

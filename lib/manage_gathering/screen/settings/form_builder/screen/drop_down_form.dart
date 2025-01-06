@@ -38,7 +38,6 @@ class DropDownFormPage extends StatelessWidget {
       isSelectedNotifier.value = !isSelectedNotifier.value;
     }
 
-    final dialoge = ShowDialoge();
     final TextEditingController labelController = TextEditingController();
     final TextEditingController helperTextController = TextEditingController();
 
@@ -54,7 +53,7 @@ class DropDownFormPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                dialoge.showDialoge(
+                ShowDialoge().showDialoge(
                   "Delete",
                   "Are you sure? you want to delete this field",
                   context,
@@ -162,10 +161,11 @@ class DropDownFormPage extends StatelessWidget {
                               helperText: helperTextController.text,
                               isMadatory: isSelectedNotifier.value);
 
-                          if (dropDownOptions.isNotEmpty && labelController.text.isNotEmpty) {
+                          if (dropDownOptions.isNotEmpty &&
+                              labelController.text.isNotEmpty) {
                             context.read<FormBuilderBloc>().add(
                                 AddFormsEvent(formBuilderModel: dropDownForm));
-                                  Navigator.pop(context);
+                            Navigator.pop(context);
                           }
                         },
                         child: const Text("Add"),

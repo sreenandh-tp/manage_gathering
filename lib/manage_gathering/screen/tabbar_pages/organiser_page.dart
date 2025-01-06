@@ -51,8 +51,7 @@ class OrganiserPage extends StatelessWidget {
                     ),
                     PopupMenuItem(
                       onTap: () {
-                        final dialoge = ShowDialoge();
-                        dialoge.showDialoge(
+                        ShowDialoge().showDialoge(
                             "Remove?",
                             "Are you sure you want to remove this person?",
                             context,

@@ -44,8 +44,6 @@ class RadioButtonFormPage extends StatelessWidget {
       isSelectedNotifier.value = !isSelectedNotifier.value;
     }
 
-    final dialoge = ShowDialoge();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -56,7 +54,7 @@ class RadioButtonFormPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                dialoge.showDialoge(
+                ShowDialoge().showDialoge(
                   "Delete",
                   "Are you sure? you want to delete this field",
                   context,
@@ -166,7 +164,7 @@ class RadioButtonFormPage extends StatelessWidget {
                           context
                               .read<FormBuilderBloc>()
                               .add(AddFormsEvent(formBuilderModel: radioForm));
-                                Navigator.pop(context);
+                          Navigator.pop(context);
                         }
                       },
                       child: const Text("Add"),

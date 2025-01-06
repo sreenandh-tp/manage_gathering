@@ -8,7 +8,6 @@ class AcceptOrRejectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dialog = ShowDialoge();
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -21,7 +20,7 @@ class AcceptOrRejectButton extends StatelessWidget {
             padding: const EdgeInsets.all(0),
             color: Theme.of(context).textTheme.labelMedium?.color,
             onPressed: () {
-              dialog.showDialoge(
+              ShowDialoge().showDialoge(
                   "Reject?",
                   "Are you sure you want to reject this joining request?",
                   context,

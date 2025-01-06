@@ -38,7 +38,7 @@ class MultipleCheckboxFormPage extends StatelessWidget {
       isSelectedNotifier.value = !isSelectedNotifier.value;
     }
 
-    final dialoge = ShowDialoge();
+  
 
     final TextEditingController labelController = TextEditingController();
     final TextEditingController helperTextController = TextEditingController();
@@ -53,7 +53,7 @@ class MultipleCheckboxFormPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                dialoge.showDialoge(
+                ShowDialoge().showDialoge(
                   "Delete",
                   "Are you sure? you want to delete this field",
                   context,
