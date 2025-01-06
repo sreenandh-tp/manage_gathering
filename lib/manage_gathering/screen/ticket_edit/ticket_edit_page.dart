@@ -5,6 +5,7 @@ import 'package:manage_gathering/core/lists_page.dart';
 import 'package:manage_gathering/manage_gathering/screen/ticket_edit/cubit/ticket_edit_cubit.dart';
 import 'package:manage_gathering/manage_gathering/screen/ticket_edit/widgets/tickect_textfield_widget.dart';
 
+import 'widgets/checkbox_tile.dart';
 import 'widgets/date_picker_field.dart';
 
 class TicketEditPage extends StatelessWidget {
@@ -45,24 +46,13 @@ class TicketEditPage extends StatelessWidget {
                     textInputType: TextInputType.number,
                   ),
 
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    horizontalTitleGap: 5,
-                    dense: true,
-                    onTap: () {
-                      context.read<TicketEditCubit>().isAllowBulk();
-                    },
-                    leading: Checkbox(
-                      tristate: true,
-                      value: state.isAllowBulkBooking,
-                      onChanged: (value) {
-                        context.read<TicketEditCubit>().isAllowBulk();
-                      },
-                    ),
-                    title: Text(
-                      "Allow bulk booking",
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
+                  CheckBoxTile(
+                    checkBoxTap: (value) =>
+                        context.read<TicketEditCubit>().isAllowBulk(),
+                    checkValue: state.isAllowBulkBooking,
+                    title: "Allow bulk booking",
+                    tiltOnTap: () =>
+                        context.read<TicketEditCubit>().isAllowBulk(),
                   ),
                   Row(
                     children: [
@@ -134,24 +124,13 @@ class TicketEditPage extends StatelessWidget {
                     ],
                   ),
                   // apply discount check box
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    horizontalTitleGap: 5,
-                    dense: true,
-                    onTap: () {
-                      context.read<TicketEditCubit>().isApplyDiscount();
-                    },
-                    leading: Checkbox(
-                      tristate: true,
-                      value: state.isApplyDiscount,
-                      onChanged: (value) {
-                        context.read<TicketEditCubit>().isApplyDiscount();
-                      },
-                    ),
-                    title: Text(
-                      "Apply Discount",
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
+                  CheckBoxTile(
+                    checkBoxTap: (value) =>
+                        context.read<TicketEditCubit>().isApplyDiscount(),
+                    checkValue: state.isApplyDiscount,
+                    title: "Apply Discount",
+                    tiltOnTap: () =>
+                        context.read<TicketEditCubit>().isApplyDiscount(),
                   ),
                   Visibility(
                     visible: state.isApplyDiscount,
@@ -196,7 +175,7 @@ class TicketEditPage extends StatelessWidget {
                     visible: state.isApplyDiscount,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          right: 15, left: 15, bottom: 10),
+                          right: 15, left: 15, bottom: 15),
                       child: DatePickerField(
                         startLabelText: "Start on",
                         startDatePicker: () {},
@@ -210,7 +189,7 @@ class TicketEditPage extends StatelessWidget {
                     visible: state.isApplyDiscount,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          left: 15, right: 15, bottom: 10),
+                          left: 15, right: 15, bottom: 15),
                       child: DatePickerField(
                         startLabelText: "Sale start",
                         endLabelText: "Sale end",
@@ -232,33 +211,24 @@ class TicketEditPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    horizontalTitleGap: 5,
-                    dense: true,
-                    onTap: () {
-                      context.read<TicketEditCubit>().isAgeProofCheck();
-                    },
-                    leading: Checkbox(
-                      tristate: true,
-                      value: state.isAgeProofCheck,
-                      onChanged: (value) {
-                        context.read<TicketEditCubit>().isAgeProofCheck();
-                      },
-                    ),
-                    title: Text(
-                      "18+ (Valid age proof ID card required)",
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
+                  CheckBoxTile(
+                    checkBoxTap: (value) =>
+                        context.read<TicketEditCubit>().isAgeProofCheck(),
+                    checkValue: state.isAgeProofCheck,
+                    title: "18+ (Valid age proof ID card required)",
+                    tiltOnTap: () =>
+                        context.read<TicketEditCubit>().isAgeProofCheck(),
                   ),
                   ListTile(
                     title: Text(
                       "The guest will bear the platform fee of 5% in addition to the ticket amount",
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     trailing: Switch(
-                      value: true,
-                      onChanged: (value) {},
+                      value: state.isSwitchSelect,
+                      onChanged: (value) {
+                        context.read<TicketEditCubit>().isSwitchSelect();
+                      },
                     ),
                   ),
                   Padding(
@@ -266,7 +236,7 @@ class TicketEditPage extends StatelessWidget {
                         const EdgeInsets.only(left: 15, right: 15, top: 10),
                     child: Text(
                       "Pass cancel & refund option",
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                   ...List.generate(
@@ -281,7 +251,9 @@ class TicketEditPage extends StatelessWidget {
                         value: index,
                         groupValue: state.isRadioSelected,
                         onChanged: (value) {
-                          context.read<TicketEditCubit>().isSelectedRadio(value!);
+                          context
+                              .read<TicketEditCubit>()
+                              .isSelectedRadio(value!);
                         },
                       );
                     },

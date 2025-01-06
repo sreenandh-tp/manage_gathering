@@ -8,7 +8,6 @@ class OrganiserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dialoge = ShowDialoge();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: ListView(
@@ -52,6 +51,7 @@ class OrganiserPage extends StatelessWidget {
                     ),
                     PopupMenuItem(
                       onTap: () {
+                        final dialoge = ShowDialoge();
                         dialoge.showDialoge(
                             "Remove?",
                             "Are you sure you want to remove this person?",
