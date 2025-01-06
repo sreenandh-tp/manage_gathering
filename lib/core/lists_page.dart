@@ -97,3 +97,8 @@ final List formPages = [
 final List singleLineFormType = ["Text", "Number", "E-mail", "Phone", "Date"];
 
 final List<String> organisers = ["Host", "Organiser", "Co-Host"];
+var dropDownItems = ["10%", "20%", "30%", "40%", "50%"];
+final List<String> tickectEditFundOption = [
+  "Non-Refundable",
+  "100% Refundable"
+];

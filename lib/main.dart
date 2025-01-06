@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manage_gathering/manage_gathering/bloc/manage_gathering_bloc.dart';
 import 'package:manage_gathering/manage_gathering/screen/manage_gathering.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/bloc/form_builder_bloc.dart';
+import 'package:manage_gathering/manage_gathering/screen/ticket_edit/cubit/ticket_edit_cubit.dart';
 import 'package:manage_gathering/theme/theme_class.dart';
 
 void main() {
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ManageGatheringBloc(),
         ),
+        BlocProvider(
+          create: (context) => TicketEditCubit(),
+        )
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,
