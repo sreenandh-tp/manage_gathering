@@ -5,24 +5,29 @@ import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/f
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class MultilineTextFormPage extends StatelessWidget {
+class MultilineTextFormPage extends StatefulWidget {
   const MultilineTextFormPage({super.key});
 
   @override
+  State<MultilineTextFormPage> createState() => _MultilineTextFormPageState();
+}
+
+class _MultilineTextFormPageState extends State<MultilineTextFormPage> {
+  final TextEditingController labelController = TextEditingController();
+  final TextEditingController placeHolderTextController =
+      TextEditingController();
+  final TextEditingController helperTextController = TextEditingController();
+
+  bool isSelected = false;
+
+  void isSelect() {
+    setState(() {
+      isSelected = !isSelected;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> isSelectedNotifier = ValueNotifier(false);
-
-    void isSelect() {
-      isSelectedNotifier.value = !isSelectedNotifier.value;
-    }
-
-
-
-    final TextEditingController labelController = TextEditingController();
-    final TextEditingController placeHolderTextController =
-        TextEditingController();
-    final TextEditingController helperTextController = TextEditingController();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -63,25 +68,21 @@ class MultilineTextFormPage extends StatelessWidget {
               labelText: "Helper text (Optional)",
               hintText: "Enter helper text",
             ),
-            ValueListenableBuilder(
-                valueListenable: isSelectedNotifier,
-                builder: (BuildContext ctx, bool newValue, Widget? _) {
-                  return ListTile(
-                    onTap: () => isSelect(),
-                    horizontalTitleGap: 5,
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    leading: Checkbox(
-                      value: newValue,
-                      onChanged: (value) {
-                        isSelect();
-                      },
-                    ),
-                    title: Text(
-                      "This field is mandatory",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  );
-                }),
+            ListTile(
+              onTap: () => isSelect(),
+              horizontalTitleGap: 5,
+              contentPadding: const EdgeInsets.only(left: 0),
+              leading: Checkbox(
+                value: isSelected,
+                onChanged: (value) {
+                  isSelect();
+                },
+              ),
+              title: Text(
+                "This field is mandatory",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
           ],
         ),
         bottomNavigationBar: BottomAppBar(
@@ -94,14 +95,14 @@ class MultilineTextFormPage extends StatelessWidget {
                   final multiLineForm = FormBuilderModel(
                       formType: FormType.multiLineText,
                       label: labelController.text,
-                      isMadatory: isSelectedNotifier.value,
+                      isMadatory: isSelected,
                       placeHolderText: placeHolderTextController.text,
                       helperText: helperTextController.text);
 
                   context
                       .read<FormBuilderBloc>()
                       .add(AddFormsEvent(formBuilderModel: multiLineForm));
-                        Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: const Text("Add"),
               ),

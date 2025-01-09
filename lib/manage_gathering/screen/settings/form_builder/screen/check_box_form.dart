@@ -5,20 +5,32 @@ import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/f
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class CheckBoxFormPage extends StatelessWidget {
+class CheckBoxFormPage extends StatefulWidget {
   const CheckBoxFormPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final ValueNotifier<bool> isSelectedNotifier = ValueNotifier(false);
+  State<CheckBoxFormPage> createState() => _CheckBoxFormPageState();
+}
 
-    void isSelect() {
-      isSelectedNotifier.value = !isSelectedNotifier.value;
-    }
+class _CheckBoxFormPageState extends State<CheckBoxFormPage> {
+  
 
     final TextEditingController labelController = TextEditingController();
     final TextEditingController placeHolderTextController =
         TextEditingController();
+
+    bool isSelected = false;
+
+  void isSelect() {
+    setState(() {
+      isSelected = !isSelected;
+    });
+  }     
+
+
+  @override
+  Widget build(BuildContext context) {
+   
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -55,25 +67,21 @@ class CheckBoxFormPage extends StatelessWidget {
               labelText: "Placeholder text",
               hintText: "Enter placeholder text",
             ),
-            ValueListenableBuilder(
-                valueListenable: isSelectedNotifier,
-                builder: (BuildContext ctx, bool newValue, Widget? _) {
-                  return ListTile(
-                    onTap: () => isSelect(),
-                    horizontalTitleGap: 5,
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    leading: Checkbox(
-                      value: newValue,
-                      onChanged: (value) {
-                        isSelect();
-                      },
-                    ),
-                    title: Text(
-                      "This field is mandatory",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  );
-                }),
+            ListTile(
+              onTap: () => isSelect(),
+              horizontalTitleGap: 5,
+              contentPadding: const EdgeInsets.only(left: 0),
+              leading: Checkbox(
+                value: isSelected,
+                onChanged: (value) {
+                  isSelect();
+                },
+              ),
+              title: Text(
+                "This field is mandatory",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
           ],
         ),
         bottomNavigationBar: BottomAppBar(
@@ -87,7 +95,7 @@ class CheckBoxFormPage extends StatelessWidget {
                       formType: FormType.checkBox,
                       label: labelController.text,
                       placeHolderText: placeHolderTextController.text,
-                      isMadatory: isSelectedNotifier.value);
+                      isMadatory: isSelected);
 
                   context
                       .read<FormBuilderBloc>()

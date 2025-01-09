@@ -5,20 +5,26 @@ import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/f
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class ImageUploadFormPage extends StatelessWidget {
+class ImageUploadFormPage extends StatefulWidget {
   const ImageUploadFormPage({super.key});
 
   @override
+  State<ImageUploadFormPage> createState() => _ImageUploadFormPageState();
+}
+
+class _ImageUploadFormPageState extends State<ImageUploadFormPage> {
+  final TextEditingController imageLabelController = TextEditingController();
+
+  bool isSelected = false;
+
+  void isSelect() {
+    setState(() {
+      isSelected = !isSelected;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> isSelectedNotifier = ValueNotifier(false);
-
-    void isSelect() {
-      isSelectedNotifier.value = !isSelectedNotifier.value;
-    }
-
- 
-    final TextEditingController imageLabelController = TextEditingController();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -45,25 +51,21 @@ class ImageUploadFormPage extends StatelessWidget {
                 controller: imageLabelController,
                 labelText: "Label",
                 hintText: "Enter label"),
-            ValueListenableBuilder(
-                valueListenable: isSelectedNotifier,
-                builder: (BuildContext ctx, bool newValue, Widget? _) {
-                  return ListTile(
-                    onTap: () => isSelect(),
-                    horizontalTitleGap: 5,
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    leading: Checkbox(
-                      value: newValue,
-                      onChanged: (value) {
-                        isSelect();
-                      },
-                    ),
-                    title: Text(
-                      "This field is mandatory",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  );
-                }),
+            ListTile(
+              onTap: () => isSelect(),
+              horizontalTitleGap: 5,
+              contentPadding: const EdgeInsets.only(left: 0),
+              leading: Checkbox(
+                value: isSelected,
+                onChanged: (value) {
+                  isSelect();
+                },
+              ),
+              title: Text(
+                "This field is mandatory",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
           ],
         ),
         bottomNavigationBar: BottomAppBar(
@@ -76,12 +78,12 @@ class ImageUploadFormPage extends StatelessWidget {
                   final imageForm = FormBuilderModel(
                       formType: FormType.imageUpload,
                       label: imageLabelController.text,
-                      isMadatory: isSelectedNotifier.value);
+                      isMadatory: isSelected);
 
                   context
                       .read<FormBuilderBloc>()
                       .add(AddFormsEvent(formBuilderModel: imageForm));
-                        Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: const Text("Add"),
               ),

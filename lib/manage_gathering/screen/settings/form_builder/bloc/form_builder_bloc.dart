@@ -7,7 +7,11 @@ part 'form_builder_event.dart';
 part 'form_builder_state.dart';
 
 class FormBuilderBloc extends Bloc<FormBuilderEvent, FormBuilderState> {
-  FormBuilderBloc() : super(FormBuilderInitial(formList: [])) {
+  FormBuilderBloc()
+      : super(FormBuilderInitial(
+          formList: [],
+          enableRegisterForm: false,
+        )) {
     on<AddFormsEvent>((event, emit) {
       state.formList.add(event.formBuilderModel);
 
@@ -17,13 +21,17 @@ class FormBuilderBloc extends Bloc<FormBuilderEvent, FormBuilderState> {
         },
       ).toString());
 
-      emit(FormBuilderState(formList: state.formList));
+      emit(FormBuilderState(
+          formList: state.formList,
+          enableRegisterForm: state.enableRegisterForm));
     });
 
     on<SelectedFieldTypeEvent>(
       (event, emit) {
         emit(FormBuilderState(
-            formList: state.formList, fieldType: event.fieldType));
+            formList: state.formList,
+            fieldType: event.fieldType,
+            enableRegisterForm: state.enableRegisterForm));
       },
     );
 
@@ -34,14 +42,26 @@ class FormBuilderBloc extends Bloc<FormBuilderEvent, FormBuilderState> {
 
         state.formList.insert(event.newIndex, updatedList);
 
-        emit(FormBuilderState(formList: state.formList));
+        emit(FormBuilderState(
+            formList: state.formList,
+            enableRegisterForm: state.enableRegisterForm));
       },
     );
 
     on<AddFormTitleEvent>(
       (event, emit) {
         emit(FormBuilderState(
-            formList: state.formList, formTitle: event.formTitle));
+            formList: state.formList,
+            formTitle: event.formTitle,
+            enableRegisterForm: state.enableRegisterForm));
+      },
+    );
+
+    on<EnableRegisterFormEvent>(
+      (event, emit) {
+        emit(FormBuilderState(
+            formList: state.formList,
+            enableRegisterForm: !state.enableRegisterForm));
       },
     );
   }

@@ -6,12 +6,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> isConformNotifier = ValueNotifier(false);
-
-    void isConform() {
-      isConformNotifier.value = !isConformNotifier.value;
-    }
-
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
@@ -25,7 +19,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(
             child: ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(), 
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: settingsItems.length,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -48,7 +42,7 @@ class SettingsPage extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              gatheringCancelSheet(context, isConformNotifier, isConform);
+              gatheringCancelSheet(context);
             },
             leading: const Icon(Icons.cancel_outlined),
             title: Text(
@@ -61,82 +55,71 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> gatheringCancelSheet(BuildContext context,
-      ValueNotifier<bool> isConformNotifier, void Function() isConform) {
+  Future<dynamic> gatheringCancelSheet(BuildContext context) {
     return showModalBottomSheet(
       useRootNavigator: true,
       showDragHandle: true,
       scrollControlDisabledMaxHeightRatio: 0.6,
       context: context,
       builder: (context) {
-        return ValueListenableBuilder(
-            valueListenable: isConformNotifier,
-            builder: (BuildContext context, bool newValue, Widget? child) {
-              return SizedBox(
-                child: ListView(
-                  shrinkWrap: true,
+        return SizedBox(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                child: Text(
+                  "Cancel Gathering",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                child: Text(
+                  "Are you sure you want to caancel this gathring for ever?",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              ListTile(
+                dense: true,
+                horizontalTitleGap: 5,
+                contentPadding: const EdgeInsets.only(left: 0, bottom: 15),
+                onTap: () {},
+                leading: Checkbox(
+                  value: false,
+                  onChanged: (value) {},
+                ),
+                title: Text(
+                  "Conform that you agree this",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 15, right: 15, bottom: 10),
-                      child: Text(
-                        "Cancel Gathering",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 15),
-                      child: Text(
-                        "Are you sure you want to caancel this gathring for ever?",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    ListTile(
-                      dense: true,
-                      horizontalTitleGap: 5,
-                      contentPadding:
-                          const EdgeInsets.only(left: 0, bottom: 15),
-                      onTap: () {
-                        isConform();
-                      },
-                      leading: Checkbox(
-                        value: isConformNotifier.value,
-                        onChanged: (value) {
-                          isConform();
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
                         },
-                      ),
-                      title: Text(
-                        "Conform that you agree this",
-                        style: Theme.of(context).textTheme.titleMedium,
+                        child: const Text("Cancel")),
+                    const SizedBox(width: 15),
+                    AnimatedOpacity(
+                      opacity: 1.0,
+                      duration: const Duration(milliseconds: 300),
+                      child: FilledButton(
+                        onPressed: () {},
+                        child: const Text("Conform"),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10, right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text("Cancel")),
-                          const SizedBox(width: 15),
-                          AnimatedOpacity(
-                            opacity: isConformNotifier.value ? 1.0 : 0.3,
-                            duration: const Duration(milliseconds: 300),
-                            child: FilledButton(
-                              onPressed: () {},
-                              child: const Text("Conform"),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
                   ],
                 ),
-              );
-            });
+              )
+            ],
+          ),
+        );
       },
     );
   }

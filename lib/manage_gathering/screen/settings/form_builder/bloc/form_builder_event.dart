@@ -27,3 +27,5 @@ class AddFormTitleEvent extends FormBuilderEvent {
 
   AddFormTitleEvent({required this.formTitle});
 }
+
+class EnableRegisterFormEvent extends FormBuilderEvent {}

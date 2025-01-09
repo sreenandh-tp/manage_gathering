@@ -9,7 +9,7 @@ class TermsAndConditionPage extends StatefulWidget {
 }
 
 class _TermsAndConditionPageState extends State<TermsAndConditionPage> {
-  final ValueNotifier<bool> isSelected = ValueNotifier(false);
+
 
   final TextEditingController termsAndConditionController =
       TextEditingController();
@@ -28,9 +28,7 @@ class _TermsAndConditionPageState extends State<TermsAndConditionPage> {
 
   @override
   Widget build(BuildContext context) {
-    void isFieldSelected() {
-      isSelected.value = !isSelected.value;
-    }
+   
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -40,65 +38,53 @@ class _TermsAndConditionPageState extends State<TermsAndConditionPage> {
           "Terms & Conditions",
         ),
         actions: [
-          ValueListenableBuilder(
-              valueListenable: isSelected,
-              builder: (BuildContext ctx, bool newValue, Widget? _) {
-                return AnimatedOpacity(
-                  opacity: newValue ? 0.3 : 1.0,
-                  duration: const Duration(milliseconds: 300),
-                  child: TextButton.icon(
-                    onPressed: () {
-                      isFieldSelected();
-                    },
-                    icon: const Icon(
-                      Icons.edit,
-                      size: 18,
-                    ),
-                    label: const Text("Edit"),
-                  ),
-                );
-              })
+          AnimatedOpacity(
+            opacity:  0.3 ,
+            duration: const Duration(milliseconds: 300),
+            child: TextButton.icon(
+              onPressed: () {
+             
+              },
+              icon: const Icon(
+                Icons.edit,
+                size: 18,
+              ),
+              label: const Text("Edit"),
+            ),
+          )
         ],
       ),
       body: ListView(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
         children: [
-          ValueListenableBuilder(
-              valueListenable: isSelected,
-              builder: (BuildContext context, dynamic newValue, Widget? child) {
-                return TextFormField(
-                  controller: termsAndConditionController,
-                  enabled: isSelected.value,
-                  minLines: 1,
-                  maxLines: 150,
-                  decoration: const InputDecoration(
-                    hintText: "Enter Terms & Conditions",
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                );
-              }),
+          TextFormField(
+            controller: termsAndConditionController,
+            enabled: false,
+            minLines: 1,
+            maxLines: 150,
+            decoration: const InputDecoration(
+              hintText: "Enter Terms & Conditions",
+              border: UnderlineInputBorder(
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
         ],
       ),
       bottomSheet: BottomAppBar(
         child: Align(
           alignment: Alignment.bottomCenter,
-          child: ValueListenableBuilder(
-              valueListenable: isSelected,
-              builder: (BuildContext ctx, bool newValue, Widget? _) {
-                return AnimatedOpacity(
-                  duration: const Duration(milliseconds: 300),
-                  opacity: newValue ? 1.0 : 0.3,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: FilledButton(
-                      onPressed: () {},
-                      child: const Text("Save"),
-                    ),
-                  ),
-                );
-              }),
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity:  1.0 ,
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () {},
+                child: const Text("Save"),
+              ),
+            ),
+          ),
         ),
       ),
     );

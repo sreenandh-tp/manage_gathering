@@ -16,12 +16,6 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
   final TextEditingController formTitleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> enableSwitchNotifier = ValueNotifier(false);
-
-    void isEnable() {
-      enableSwitchNotifier.value = !enableSwitchNotifier.value;
-    }
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -41,49 +35,49 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
             ),
           ],
         ),
-        body: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 10, bottom: 10),
-              child: SizedBox(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      child: TextFormField(
-                        controller: formTitleController,
-                        decoration: const InputDecoration(
-                          labelText: "Form title",
-                          hintText: "Enter your form title",
+        body: BlocBuilder<FormBuilderBloc, FormBuilderState>(
+          builder: (context, state) {
+            return ListView(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 10, bottom: 10),
+                  child: SizedBox(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: TextFormField(
+                            controller: formTitleController,
+                            decoration: const InputDecoration(
+                              labelText: "Form title",
+                              hintText: "Enter your form title",
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    ValueListenableBuilder(
-                        valueListenable: enableSwitchNotifier,
-                        builder: (BuildContext context, bool newValue,
-                            Widget? child) {
-                          return ListTile(
-                            contentPadding:
-                                const EdgeInsets.only(left: 10, bottom: 10),
-                            onTap: () {
-                              isEnable();
+                        ListTile(
+                          contentPadding:
+                              const EdgeInsets.only(left: 10, bottom: 10),
+                          onTap: () {
+                            context
+                                .read<FormBuilderBloc>()
+                                .add(EnableRegisterFormEvent());
+                          },
+                          title: Text(
+                            "Enable registration form",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          trailing: Switch(
+                            value: state.enableRegisterForm,
+                            onChanged: (value) {
+                              context
+                                  .read<FormBuilderBloc>()
+                                  .add(EnableRegisterFormEvent());
                             },
-                            title: Text(
-                              "Enable registration form",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            trailing: Switch(
-                              value: enableSwitchNotifier.value,
-                              onChanged: (value) {
-                                isEnable();
-                              },
-                            ),
-                          );
-                        }),
-                    BlocBuilder<FormBuilderBloc, FormBuilderState>(
-                      builder: (context, state) {
-                        return ReorderableListView.builder(
+                          ),
+                        ),
+                        ReorderableListView.builder(
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
@@ -147,55 +141,59 @@ class _FormsBuilderPageState extends State<FormsBuilderPage> {
                                 ReOrderableListEvent(
                                     newIndex: newIndex, oldIndex: oldIndex));
                           },
-                        );
-                      },
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Center(
-              child: OutlinedButton.icon(
-                onPressed: () {
-                  context.read<FormBuilderBloc>().add(
-                      AddFormTitleEvent(formTitle: formTitleController.text));
-                  showModalBottomSheet(
-                    useRootNavigator: true,
-                    showDragHandle: true,
-                    context: context,
-                    builder: (context) {
-                      return SizedBox(
-                          child: ListView.builder(
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: formItems.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            onTap: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => formPages[index],
-                                  ));
-                            },
-                            leading: Icon(formIcons[index]),
-                            title: Text(
-                              formItems[index],
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          );
-                        },
-                      ));
+                Center(
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      // context.read<FormBuilderBloc>().add(AddFormTitleEvent(
+                      //     formTitle: formTitleController.text));
+                      formBottomSheet(context);
                     },
-                  );
-                },
-                label: const Text("Add Field"),
-                icon: const Icon(Icons.add),
-              ),
-            ),
-          ],
+                    label: const Text("Add Field"),
+                    icon: const Icon(Icons.add),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
+    );
+  }
+
+  Future<dynamic> formBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      useRootNavigator: true,
+      showDragHandle: true,
+      context: context,
+      builder: (context) {
+        return SizedBox(
+            child: ListView.builder(
+          // physics: const NeverScrollableScrollPhysics(),
+          itemCount: formItems.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => formPages[index],
+                    ));
+              },
+              leading: Icon(formIcons[index]),
+              title: Text(
+                formItems[index],
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            );
+          },
+        ));
+      },
     );
   }
 }

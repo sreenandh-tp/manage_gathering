@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manage_gathering/core/lists_page.dart';
@@ -8,27 +6,33 @@ import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/f
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/model/form_builder_model.dart';
 import 'package:manage_gathering/manage_gathering/screen/settings/form_builder/screen/widget/form_textfield_widget.dart';
 
-class SinglelineTextFormPage extends StatelessWidget {
+class SinglelineTextFormPage extends StatefulWidget {
   const SinglelineTextFormPage({super.key});
 
   @override
+  State<SinglelineTextFormPage> createState() => _SinglelineTextFormPageState();
+}
+
+class _SinglelineTextFormPageState extends State<SinglelineTextFormPage> {
+  final TextEditingController labelController = TextEditingController();
+
+  final TextEditingController placeHolderTextController =
+      TextEditingController();
+
+  final TextEditingController helperTextController = TextEditingController();
+
+  FieldType selectedType = FieldType.text;
+
+  bool isSelected = false;
+
+  void isSelect() {
+    setState(() {
+      isSelected = !isSelected;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController labelController = TextEditingController();
-
-    final TextEditingController placeHolderTextController =
-        TextEditingController();
-
-    final TextEditingController helperTextController = TextEditingController();
-
-    FieldType selectedType = FieldType.text;
-
-    final ValueNotifier<bool> isSelectedNotifier = ValueNotifier(false);
-
-    void isSelect() {
-      isSelectedNotifier.value = !isSelectedNotifier.value;
-    }
-
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -91,7 +95,6 @@ class SinglelineTextFormPage extends StatelessWidget {
                                 context.read<FormBuilderBloc>().add(
                                     SelectedFieldTypeEvent(
                                         fieldType: FieldType.values[index]));
-                                log(selectedType.toString());
                               },
                               selected: selectedType == FieldType.values[index],
                               padding:
@@ -104,26 +107,21 @@ class SinglelineTextFormPage extends StatelessWidget {
                     );
                   },
                 )),
-            ValueListenableBuilder(
-                valueListenable: isSelectedNotifier,
-                builder: (BuildContext ctx, bool newValue, Widget? _) {
-                  return ListTile(
-                    onTap: () => isSelect(),
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    horizontalTitleGap: 5,
-                    leading: Checkbox(
-                      value: newValue,
-                      onChanged: (value) {
-                        isSelect();
-                        log(isSelectedNotifier.value.toString());
-                      },
-                    ),
-                    title: Text(
-                      "This field is mandatory",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  );
-                }),
+            ListTile(
+              onTap: () => isSelect(),
+              contentPadding: const EdgeInsets.only(left: 0),
+              horizontalTitleGap: 5,
+              leading: Checkbox(
+                value: isSelected,
+                onChanged: (value) {
+                  isSelect();
+                },
+              ),
+              title: Text(
+                "This field is mandatory",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
           ],
         ),
         bottomNavigationBar: BottomAppBar(
@@ -139,7 +137,7 @@ class SinglelineTextFormPage extends StatelessWidget {
                     fieldType: selectedType,
                     placeHolderText: placeHolderTextController.text,
                     helperText: helperTextController.text,
-                    isMadatory: isSelectedNotifier.value,
+                    isMadatory: isSelected,
                   );
                   context
                       .read<FormBuilderBloc>()

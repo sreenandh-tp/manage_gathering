@@ -39,6 +39,11 @@ class TicketEditPage extends StatelessWidget {
                     hintText: "Enter your ticket name",
                     textInputType: TextInputType.name,
                   ),
+                  const TicketTextFieldWidget(
+                      maxLine: 2,
+                      labelText: "Short Discription",
+                      hintText: "Enter discription",
+                      textInputType: TextInputType.text),
                   TicketTextFieldWidget(
                     labelText: "Number of tickets",
                     hintText: "0",
@@ -54,27 +59,30 @@ class TicketEditPage extends StatelessWidget {
                     tiltOnTap: () =>
                         context.read<TicketEditCubit>().isAllowBulk(),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: TicketTextFieldWidget(
-                        labelText: "Min Tickets",
-                        hintText: "1",
-                        textInputType: TextInputType.number,
-                        inputFormatter: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      )),
-                      Expanded(
-                          child: TicketTextFieldWidget(
-                        labelText: "Max Tickets",
-                        hintText: "10",
-                        textInputType: TextInputType.number,
-                        inputFormatter: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      )),
-                    ],
+                  Visibility(
+                    visible: state.isAllowBulkBooking,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: TicketTextFieldWidget(
+                          labelText: "Min Tickets",
+                          hintText: "1",
+                          textInputType: TextInputType.number,
+                          inputFormatter: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        )),
+                        Expanded(
+                            child: TicketTextFieldWidget(
+                          labelText: "Max Tickets",
+                          hintText: "10",
+                          textInputType: TextInputType.number,
+                          inputFormatter: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        )),
+                      ],
+                    ),
                   ),
                   // PRICE & GST FIELD
                   Row(
@@ -185,17 +193,14 @@ class TicketEditPage extends StatelessWidget {
                     ),
                   ),
 
-                  Visibility(
-                    visible: state.isApplyDiscount,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 15, right: 15, bottom: 15),
-                      child: DatePickerField(
-                        startLabelText: "Sale start",
-                        endLabelText: "Sale end",
-                        startDatePicker: () {},
-                        endDatePicker: () {},
-                      ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                    child: DatePickerField(
+                      startLabelText: "Sale start",
+                      endLabelText: "Sale end",
+                      startDatePicker: () {},
+                      endDatePicker: () {},
                     ),
                   ),
 
@@ -203,8 +208,7 @@ class TicketEditPage extends StatelessWidget {
                     padding:
                         const EdgeInsets.only(left: 15, right: 15, bottom: 20),
                     child: TextFormField(
-                      minLines: 1,
-                      maxLines: 3,
+                      maxLines: 2,
                       decoration: const InputDecoration(
                         labelText: "Pass information",
                         hintText: "Enter your short information",

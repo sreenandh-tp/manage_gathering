@@ -8,8 +8,6 @@ class PreviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<int> selectedRadioNatifier = ValueNotifier(0);
-    final ValueNotifier<bool> selectedCheckBoxNotifier = ValueNotifier(false);
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
@@ -71,25 +69,15 @@ class PreviewPage extends StatelessWidget {
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      return ValueListenableBuilder(
-                                          valueListenable:
-                                              selectedRadioNatifier,
-                                          builder:
-                                              (context, newSelectedValue, _) {
-                                            return RadioListTile(
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                      left: 5),
-                                              value: index,
-                                              groupValue: newSelectedValue,
-                                              onChanged: (value) {
-                                                selectedRadioNatifier.value =
-                                                    value!;
-                                              },
-                                              title: Text(
-                                                  formList.radioOption![index]),
-                                            );
-                                          });
+                                      return RadioListTile(
+                                        contentPadding:
+                                            const EdgeInsets.only(left: 5),
+                                        value: index,
+                                        groupValue: false,
+                                        onChanged: (value) {},
+                                        title:
+                                            Text(formList.radioOption![index]),
+                                      );
                                     },
                                   )
                                 : formList.formType == FormType.multipleCheckBox
@@ -153,40 +141,23 @@ class PreviewPage extends StatelessWidget {
                                               )
                                             : formList.formType ==
                                                     FormType.checkBox
-                                                ? ValueListenableBuilder(
-                                                    valueListenable:
-                                                        selectedCheckBoxNotifier,
-                                                    builder: (context,
-                                                        newSelectedValue, _) {
-                                                      return ListTile(
-                                                        onTap: () =>
-                                                            selectedCheckBoxNotifier
-                                                                    .value =
-                                                                !selectedCheckBoxNotifier
-                                                                    .value,
-                                                        horizontalTitleGap: 5,
-                                                        contentPadding:
-                                                            const EdgeInsets
-                                                                .only(left: 2),
-                                                        leading: Checkbox(
-                                                          value:
-                                                              selectedCheckBoxNotifier
-                                                                  .value,
-                                                          onChanged: (value) {
-                                                            selectedCheckBoxNotifier
-                                                                .value = value!;
-                                                          },
-                                                        ),
-                                                        title: Text(
-                                                          formList
-                                                              .placeHolderText!,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleMedium,
-                                                        ),
-                                                      );
-                                                    })
+                                                ? ListTile(
+                                                    onTap: () {},
+                                                    horizontalTitleGap: 5,
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            left: 2),
+                                                    leading: Checkbox(
+                                                      value: false,
+                                                      onChanged: (value) {},
+                                                    ),
+                                                    title: Text(
+                                                      formList.placeHolderText!,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                    ),
+                                                  )
                                                 : Center(
                                                     child: Text(
                                                       "No Foem Added",

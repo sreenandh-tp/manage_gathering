@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class SettlementAndRefundPage extends StatelessWidget {
   SettlementAndRefundPage({super.key});
 
-  final ValueNotifier<int> selectedRadioNatifier = ValueNotifier(0);
-
   final List<String> radioItems = [
     "Non-Refundable",
     "100% Refundable",
@@ -20,28 +18,21 @@ class SettlementAndRefundPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ValueListenableBuilder(
-              valueListenable: selectedRadioNatifier,
-              builder:
-                  (BuildContext context, int selectedValue, Widget? child) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: radioItems.length,
-                  itemBuilder: (context, index) {
-                    return RadioListTile(
-                      title: Text(
-                        radioItems[index],
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      value: index,
-                      groupValue: selectedValue,
-                      onChanged: (value) {
-                        selectedRadioNatifier.value = value!;
-                      },
-                    );
-                  },
-                );
-              }),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: radioItems.length,
+            itemBuilder: (context, index) {
+              return RadioListTile(
+                title: Text(
+                  radioItems[index],
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                value: index,
+                groupValue: true,
+                onChanged: (value) {},
+              );
+            },
+          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
